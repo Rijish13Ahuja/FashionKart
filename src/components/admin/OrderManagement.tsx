@@ -4,6 +4,9 @@ import { getAllOrders, updateOrderStatus, deleteOrder } from '../../services/Ord
 const OrderManagement: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [selectedOrderId, setSelectedOrderId] = useState<number | null>(null);
+  const [actionType, setActionType] = useState<string>('');
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -21,11 +24,25 @@ const OrderManagement: React.FC = () => {
         order.id === id ? { ...order, status } : order
       )
     );
+    setShowModal(false); 
   };
 
   const handleDeleteOrder = async (id: number) => {
     await deleteOrder(id);
     setOrders(orders.filter(order => order.id !== id));
+    setShowModal(false);
+  };
+
+  const openModal = (id: number, action: string) => {
+    setSelectedOrderId(id);
+    setActionType(action);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedOrderId(null);
+    setActionType('');
+    setShowModal(false);
   };
 
   return (
@@ -46,13 +63,13 @@ const OrderManagement: React.FC = () => {
                 
                 <div className="mt-4 flex justify-between items-center">
                   <button
-                    onClick={() => handleUpdateStatus(order.id, 'Shipped')}
+                    onClick={() => openModal(order.id, 'markAsShipped')}
                     className="text-blue-600 hover:text-blue-800 transition-colors duration-200"
                   >
                     Mark as Shipped
                   </button>
                   <button
-                    onClick={() => handleDeleteOrder(order.id)}
+                    onClick={() => openModal(order.id, 'delete')}
                     className="text-red-600 hover:text-red-800 transition-colors duration-200"
                   >
                     Delete
@@ -63,6 +80,39 @@ const OrderManagement: React.FC = () => {
           )}
         </div>
       </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">
+              {actionType === 'markAsShipped' ? 'Mark Order as Shipped' : 'Delete Order'}
+            </h3>
+            <p className="text-gray-600">
+              Are you sure you want to {actionType === 'markAsShipped' ? 'mark this order as shipped' : 'delete this order'}?
+            </p>
+            <div className="mt-4 flex justify-end space-x-4">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (actionType === 'markAsShipped' && selectedOrderId) {
+                    handleUpdateStatus(selectedOrderId, 'Shipped');
+                  } else if (actionType === 'delete' && selectedOrderId) {
+                    handleDeleteOrder(selectedOrderId);
+                  }
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                {actionType === 'markAsShipped' ? 'Mark as Shipped' : 'Delete Order'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

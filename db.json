@@ -81,7 +81,6 @@
       "phone": "000-111-2222"
     }
   ],
-
   "orders": [
     {
       "id": 1,
@@ -224,9 +223,7 @@
       "status": "Processing"
     }
   ],
-
-  "products":
-  [
+  "products": [
     {
       "id": 1,
       "category": "Technology",
@@ -779,5 +776,3 @@
     }
   ]
 }
-
-  
