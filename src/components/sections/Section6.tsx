@@ -2,28 +2,29 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
-const section2Items = [
-  { id: 1, title: 'Featured Item 1', description: 'This is a featured item description', imageUrl: 'https://image.made-in-china.com/226f3j00hdeVWPJniNpK/12-Color-Small-Double-Headed-Children-s-Art-Line-Marker-Pen.webp' },
-  { id: 2, title: 'Featured Item 2', description: 'This is another featured item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdZX0RPHCWetbJHPsw3WeDfJwU7xa0Njtdmg&s' },
-  { id: 3, title: 'Featured Item 3', description: 'Here is the third featured item', imageUrl: 'https://5.imimg.com/data5/IX/WH/AX/SELLER-24532083/ridley-dean-105-x-small-black-bicycle-500x500.jpg' },
-  { id: 4, title: 'Featured Item 4', description: 'This is another featured item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtRUBdnegwIkMIwyq0BB1B7AW1B_-5O3PiA&s' },
-  { id: 5, title: 'Featured Item 5', description: 'This is a new featured item', imageUrl: 'https://img.gkbcdn.com/p/2021-04-07/Faltbares-Laufband-f-r-zu-Hause--Trainingsger-te-mit-herunterladbarer-App--USB-Bluetooth-und-AUX-Konnektivit-t--LED-Anzeige--schwarz-458305-8._w800_p1_.jpg' },
+const section6Items = [
+  { id: 1, title: 'Godrej Refrigerator', description: 'From ₹7,240', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/k0lbdzk0/refrigerator-new/z/u/p/r-d-epro-205-tai-5-2-2-godrej-original-imafkfuvtcgzctyk.jpeg?q=70' },
+  { id: 2, title: 'Double Door Refrigerator', description: 'From ₹16,129', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/kyhlfgw0/refrigerator-new/x/h/w/-original-imagaqz4nmhrtzbr.jpeg?q=70' },
+  { id: 3, title: 'Semi Automatic Washing Machine', description: 'Buy Now', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/washing-machine-new/k/h/9/-original-imagjyg65pwjczbp.jpeg?q=70' },
+  { id: 4, title: 'Top Load Washing Machine', description: 'Buy now', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/l0igvww0/washing-machine-new/z/0/q/-original-imagca3uaazrwmhy.jpeg?q=70' },
+  { id: 5, title: 'Samsung Refrigerator', description: 'From ₹12,690', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/kyhlfgw0/refrigerator-new/j/s/p/-original-imagaqz4afczvvnm.jpeg?q=70' },
+  { id: 6, title: 'Energy Efficient Refrigerator', description: 'From ₹14,590', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/l3xcr680/refrigerator-new/x/9/z/-original-imagewc72ff2tdyu.jpeg?q=70' },
 ];
 
-const Section2: React.FC = () => {
+const Section6: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-
-  const handleCardClick = (category: string) => {
-    navigate(`/products?section=${category}`);
-  };
 
   const handleScroll = (direction: string) => {
     if (scrollRef.current) {
       const scrollAmount = direction === 'right' ? 300 : -300; // Amount to scroll
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+  };
+
+  const handleCardClick = (category: string) => {
+    navigate(`/products?section=${category}`);
   };
 
   return (
@@ -33,15 +34,15 @@ const Section2: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold text-gray-900">Beauty, Food, Toys & more</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">Top Deals on TVs & Appliances</h2>
       </div>
       <div className="mt-6 overflow-hidden relative">
         <div className="flex space-x-6" ref={scrollRef} style={{ overflowX: 'hidden' }}>
-          {section2Items.map(item => (
+          {section6Items.map(item => (
             <div
               className="w-64 flex-shrink-0 cursor-pointer"
               key={item.id}
-              onClick={() => handleCardClick('Beauty')}
+              onClick={() => handleCardClick('Appliances')}
             >
               <Card
                 title={item.title}
@@ -78,4 +79,4 @@ const Section2: React.FC = () => {
   );
 };
 
-export default Section2;
+export default Section6;

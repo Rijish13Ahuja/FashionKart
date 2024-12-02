@@ -2,53 +2,28 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
-const section4Items = [
-  {
-    id: 1,
-    title: 'Women Sarees',
-    description: 'Self Design Bollywood Georgette Saree',
-    imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/sari/r/l/r/-original-imaguhzpzunhfdn9.jpeg?q=70',
-  },
-  {
-    id: 2,
-    title: 'Women Ethnic Sets',
-    description: 'Women Viscose Rayon Kurta Pant Dupatta Set',
-    imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/ethnic-set/0/h/z/xl-green-ghanti-gvs-shoppe-original-imaghj34dxaubfhy.jpeg?q=70',
-  },
-  {
-    id: 3,
-    title: 'Women Kurtas',
-    description: 'This is winter special item 8',
-    imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/kurta/m/h/q/5xl-victoria-purple-nw-gosriki-original-imah3yztcykef3vs.jpeg?q=70',
-  },
-  {
-    id: 4,
-    title: 'Women Dupattas',
-    description: 'This is winter special item 9',
-    imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/dupatta/r/j/c/2-25-meters-irsn-jb-prdu52-iris-original-imaghut66jsnyjyk.jpeg?q=70',
-  },
-  {
-    id: 5,
-    title: 'Women Skirts',
-    description: 'This is winter special item 10',
-    imageUrl: 'https://rukminim2.flixcart.com/image/612/612/krp94sw0/skirt/d/k/o/free-midi-plated-skirt-otabu-original-imag5fugtqhzruxh.jpeg?q=70',
-  },
+const section7Items = [
+  { id: 1, title: 'Pixel 9 Pro', description: '₹109,999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/n/e/k/-original-imagg5zw7fwvtnxv.jpeg?q=70' },
+  { id: 2, title: 'Women Solid Flared Dress', description: '₹239 999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/kzd147k0/dress/d/r/y/xs-flower-women-rayon-flared-dress-ans-fashion-original-imagbd8hjgyfezfa.jpeg?q=70' },
+  { id: 3, title: 'Women Viscose Rayon', description: '₹799 2,699', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/sari/f/a/t/free-15020-1505-hemvati-original-imaggpxa9xz3gz9b.jpeg?q=70' },
+  { id: 4, title: 'Men’s Mufflers', description: '₹122 999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/scarf/t/o/r/solid-black-unisex-cashmilon-muffler-for-men-and-women-original-imaghs2gyjbvne6e.jpeg?q=70' },
+  { id: 5, title: 'High Neck Wool Sweater', description: '₹115 349', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/sweater/6/6/6/xxl-high-neck-sweater-alasi-original-imagncjeycrtjx5z.jpeg?q=70' },
 ];
 
-const Section4: React.FC = () => {
+const Section7: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
-  const handleCardClick = (category: string) => {
-    navigate(`/products?section=${category}`);
-  };
-
   const handleScroll = (direction: string) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'right' ? 300 : -300; // Amount to scroll
+      const scrollAmount = direction === 'right' ? 300 : -300;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
+  };
+
+  const handleCardClick = (category: string) => {
+    navigate(`/products?section=${category}`);
   };
 
   return (
@@ -58,15 +33,15 @@ const Section4: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold text-gray-900">Fashion's Top Deals</h2>
+        <h2 className="text-2xl font-semibold text-gray-900">Recently Viewed</h2>
       </div>
       <div className="mt-6 overflow-hidden relative">
         <div className="flex space-x-6" ref={scrollRef} style={{ overflowX: 'hidden' }}>
-          {section4Items.map((item) => (
+          {section7Items.map(item => (
             <div
               className="w-64 flex-shrink-0 cursor-pointer"
               key={item.id}
-              onClick={() => handleCardClick('FashionTopDeals')}
+              onClick={() => handleCardClick('RecentlyViewed')}
             >
               <Card
                 title={item.title}
@@ -89,7 +64,12 @@ const Section4: React.FC = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
             </svg>
           </button>
         )}
@@ -106,7 +86,12 @@ const Section4: React.FC = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l7-7-7-7M5 12h14"></path>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 19l7-7-7-7M5 12h14"
+              ></path>
             </svg>
           </button>
         )}
@@ -115,4 +100,4 @@ const Section4: React.FC = () => {
   );
 };
 
-export default Section4;
+export default Section7;
