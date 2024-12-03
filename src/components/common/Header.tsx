@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../user/CartContext'; // Import CartContext
+import { useCart } from '../user/CartContext';
 import LoginModal from '../auth/LoginModal';
 
 const Header: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<{ name: string; email: string } | null>(
+    JSON.parse(localStorage.getItem('user') || 'null')
+  );
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<'login' | 'register' | null>(null);
 
   const navigate = useNavigate();
-  const { items } = useCart(); // Get cart items from CartContext
+  const { items } = useCart();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -21,29 +23,25 @@ const Header: React.FC = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  const handleDropdownClick = (action: 'profile' | 'settings' | 'logout') => {
-    if (!isLoggedIn) {
+  const handleGuardedAction = (action: () => void) => {
+    if (!user) {
       setModalType('login');
       setShowModal(true);
     } else {
-      switch (action) {
-        case 'profile':
-          navigate('/profile');
-          break;
-        case 'settings':
-          navigate('/settings');
-          break;
-        case 'logout':
-          setIsLoggedIn(false);
-          navigate('/logout-confirmation');
-          break;
-      }
+      action();
     }
   };
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
+  const handleLogin = (newUser: { name: string; email: string }) => {
+    setUser(newUser);
+    localStorage.setItem('user', JSON.stringify(newUser));
     setShowModal(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+    navigate('/');
   };
 
   return (
@@ -96,7 +94,7 @@ const Header: React.FC = () => {
             onClick={toggleDropdown}
             className="text-sm font-bold hover:text-yellow-400 transition-colors"
           >
-            {isLoggedIn ? 'Hello, User' : 'Hello, Sign in'}
+            {user ? `Hello, ${user.name}` : 'Hello, Sign in'}
             <br />
             <span className="font-semibold">Account & Lists</span>
           </button>
@@ -104,19 +102,19 @@ const Header: React.FC = () => {
             <div className="absolute right-0 mt-2 bg-white text-gray-700 rounded-lg shadow-md w-48 z-10">
               <ul className="py-2">
                 <li
-                  onClick={() => handleDropdownClick('profile')}
+                  onClick={() => handleGuardedAction(() => navigate('/profile'))}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
                   Profile
                 </li>
                 <li
-                  onClick={() => handleDropdownClick('settings')}
+                  onClick={() => handleGuardedAction(() => navigate('/settings'))}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                 >
                   Settings
                 </li>
                 <li
-                  onClick={() => handleDropdownClick('logout')}
+                  onClick={handleLogout}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600"
                 >
                   Logout
@@ -129,7 +127,7 @@ const Header: React.FC = () => {
         {/* Returns & Orders */}
         <div>
           <button
-            onClick={() => navigate('/orders')}
+            onClick={() => handleGuardedAction(() => navigate('/orders'))}
             className="hover:text-yellow-400 transition-colors text-sm font-bold"
           >
             Returns
@@ -141,7 +139,7 @@ const Header: React.FC = () => {
         {/* Cart */}
         <div className="relative">
           <button
-            onClick={() => navigate('/cart')}
+            onClick={() => handleGuardedAction(() => navigate('/cart'))}
             className="flex items-center space-x-1 hover:text-yellow-400 transition-colors text-sm font-bold"
           >
             <span>Cart</span>
@@ -150,7 +148,6 @@ const Header: React.FC = () => {
               alt="Cart"
               className="w-4 h-4"
             />
-            {/* Show item count */}
             {items.length > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {items.length}
@@ -165,7 +162,6 @@ const Header: React.FC = () => {
         <LoginModal
           modalType={modalType}
           handleLogin={handleLogin}
-          handleRegister={() => alert('Registration feature coming soon!')}
           closeModal={() => setShowModal(false)}
           setModalType={setModalType}
         />

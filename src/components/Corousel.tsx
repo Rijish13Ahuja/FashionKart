@@ -2,23 +2,23 @@ import React from 'react';
 import Slider from 'react-slick';
 
 const carouselItems = [
-  { id: 1, imageUrl: 'https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/dd484f1b19c67712.jpg?q=20' },
-  { id: 2, imageUrl: 'https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/0511ba08d5abe9aa.jpg?q=20' },
-  { id: 3, imageUrl: 'https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/1316eb53d6f52c71.jpg?q=20' },
-  { id: 4, imageUrl: 'https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/f7b74e32c435adb6.jpg?q=20' },
-  { id: 5, imageUrl: 'https://rukminim2.flixcart.com/fk-p-flap/1010/170/image/a76db078b31108e1.jpeg?q=20' },
+  { id: 1, imageUrl: 'https://img.freepik.com/free-vector/flat-horizontal-banner-template-black-friday-sale_23-2150852978.jpg?semt=ais_hybrid' },
+  { id: 2, imageUrl: 'https://graphicsfamily.com/wp-content/uploads/edd/2023/06/E-commerce-Website-Product-Banner-Design-scaled.jpg' },
+  { id: 3, imageUrl: 'https://antavo.com/wp-content/uploads/2022/08/coca-cola-best-ads.png' },
+  { id: 4, imageUrl: 'https://www.intermediatms.com/wp-content/uploads/Boughey-reliability-advertising.jpg' },
+  { id: 5, imageUrl: 'https://media.licdn.com/dms/image/C4E12AQEl_rbc3zMDBw/article-cover_image-shrink_600_2000/0/1520042081919?e=2147483647&v=beta&t=xYIbECVLZsbq-gKYUeLtFn8LtU7pCGaaFQT2D9FKk_w' },
 ];
 
 const Carousel: React.FC = () => {
   const settings = {
-    infinite: true, 
+    infinite: true,
     speed: 500,
-    autoplay: true, 
-    autoplaySpeed: 2000, 
-    slidesToShow: 1, 
-    slidesToScroll: 1, 
-    arrows: true, 
-    dots: true, 
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    dots: true,
   };
 
   return (
@@ -30,7 +30,7 @@ const Carousel: React.FC = () => {
               <img
                 src={item.imageUrl}
                 alt={`Carousel Item ${item.id}`}
-                className="w-full h-72 object-cover rounded-lg shadow-md"
+                className="w-full h-[36rem] object-cover rounded-lg shadow-md" // Increased height here
               />
             </div>
           ))}
