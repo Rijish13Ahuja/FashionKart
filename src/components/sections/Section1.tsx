@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
 const section1Items = [
-  { id: 1, title: 'Item 1', description: 'This is item 1 description', imageUrl: 'https://m.media-amazon.com/images/I/51pycg0MGxL.jpg' },
-  { id: 2, title: 'Item 2', description: 'This is item 2 description', imageUrl: 'https://images.samsung.com/is/image/samsung/p6pim/in/lu28r550uqwxxl/gallery/in-ur55-lu28r550uqwxxl-536896135?$650_519_PNG$' },
-  { id: 3, title: 'Item 3', description: 'This is item 3 description', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-iegnFAE0ox6VxdebSaAXZZlUx6UL2WMBv_EPLMPDw1ap31P8J_F06Xg8P21VCHvR6to&usqp=CAU' },
-  { id: 4, title: 'Item 4', description: 'This is item 4 description', imageUrl: 'https://media.takealot.com/covers_images/068196db2fa1446cad3f89bc09c71b13/s-fb.file' },
-  { id: 5, title: 'Item 5', description: 'This is item 5 description', imageUrl: 'https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/6/U/6UU48A-1_T1680354480.png' },
-  { id: 6, title: 'Item 6', description: 'This is item 6 description', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuYO7KstiOfdrjeTB-8jnBWHioAK8DurjcZw&s' },
+  { id: 1, title: 'Apple iPhone 13', description: 'The iPhone 13 offers stunning photography, performance, and 5G connectivity in a compact design.', imageUrl: 'https://m.media-amazon.com/images/I/51pycg0MGxL.jpg' },
+  { id: 2, title: 'Samsung LU28R550UQWX 4K Monitor', description: 'A high-definition 4K monitor with stunning color accuracy and a sleek design, perfect for work and play.', imageUrl: 'https://images.samsung.com/is/image/samsung/p6pim/in/lu28r550uqwxxl/gallery/in-ur55-lu28r550uqwxxl-536896135?$650_519_PNG$' },
+  { id: 3, title: 'Sony Wireless Noise Cancelling Headphones', description: 'Enjoy superior sound quality and noise cancellation with these sleek and comfortable headphones from Sony.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-iegnFAE0ox6VxdebSaAXZZlUx6UL2WMBv_EPLMPDw1ap31P8J_F06Xg8P21VCHvR6to&usqp=CAU' },
+  { id: 4, title: 'Samsung 75" 4K Smart TV', description: 'A massive 75-inch screen with 4K resolution and smart features for a truly immersive viewing experience.', imageUrl: 'https://media.takealot.com/covers_images/068196db2fa1446cad3f89bc09c71b13/s-fb.file' },
+  { id: 5, title: 'Apple AirPods Pro', description: 'Wireless earbuds with active noise cancellation and superior sound quality, perfect for all-day wear.', imageUrl: 'https://in-media.apjonlinecdn.com/catalog/product/cache/b3b166914d87ce343d4dc5ec5117b502/6/U/6UU48A-1_T1680354480.png' },
+  { id: 6, title: 'Bose SoundLink Bluetooth Speaker', description: 'Portable and powerful Bluetooth speaker offering high-quality sound and easy connectivity for music lovers.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuYO7KstiOfdrjeTB-8jnBWHioAK8DurjcZw&s' },
 ];
 
 const Section1: React.FC = () => {
@@ -22,7 +22,7 @@ const Section1: React.FC = () => {
 
   const handleScroll = (direction: string) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'right' ? 300 : -300; // Amount to scroll
+      const scrollAmount = direction === 'right' ? 300 : -300; 
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
@@ -42,7 +42,7 @@ const Section1: React.FC = () => {
             <div
               className="w-64 flex-shrink-0 cursor-pointer"
               key={item.id}
-              onClick={() => handleCardClick('Technology')} // Replace 'Technology' with relevant category
+              onClick={() => handleCardClick('Technology')} 
             >
               <Card
                 title={item.title}
@@ -52,7 +52,6 @@ const Section1: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* Left Arrow Button */}
         {isHovered && (
           <button 
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-800 transition duration-300"
@@ -63,7 +62,6 @@ const Section1: React.FC = () => {
             </svg>
           </button>
         )}
-        {/* Right Arrow Button */}
         {isHovered && (
           <button 
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-800 transition duration-300"

@@ -18,7 +18,7 @@ const Checkout: React.FC = () => {
   const handleSubmit = async () => {
     try {
       // Validate the checkout inputs
-      await checkoutValidationSchema.validate({ address, paymentMethod });
+      await checkoutValidationSchema.validate({ address, paymentMethod }, { abortEarly: false });
 
       const orders = JSON.parse(localStorage.getItem('orders') || '[]');
       const newOrder = { items, total, address, paymentMethod, date: new Date() };
@@ -31,8 +31,22 @@ const Checkout: React.FC = () => {
         navigate('/');
       }, 4000);
     } catch (error: any) {
-      // Display validation error
-      toast.error(error.message);
+      // Check if the error is from validation and display it
+      if (error.name === 'ValidationError') {
+        error.inner.forEach((err: any) => {
+          toast.error(err.message, {
+            position: 'top-center',
+            autoClose: 3000,
+            theme: 'colored',
+          });
+        });
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.', {
+          position: 'top-center',
+          autoClose: 3000,
+          theme: 'colored',
+        });
+      }
     }
   };
 

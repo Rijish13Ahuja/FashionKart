@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
 const section2Items = [
-  { id: 1, title: 'Featured Item 1', description: 'This is a featured item description', imageUrl: 'https://image.made-in-china.com/226f3j00hdeVWPJniNpK/12-Color-Small-Double-Headed-Children-s-Art-Line-Marker-Pen.webp' },
-  { id: 2, title: 'Featured Item 2', description: 'This is another featured item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdZX0RPHCWetbJHPsw3WeDfJwU7xa0Njtdmg&s' },
-  { id: 3, title: 'Featured Item 3', description: 'Here is the third featured item', imageUrl: 'https://5.imimg.com/data5/IX/WH/AX/SELLER-24532083/ridley-dean-105-x-small-black-bicycle-500x500.jpg' },
-  { id: 4, title: 'Featured Item 4', description: 'This is another featured item', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtRUBdnegwIkMIwyq0BB1B7AW1B_-5O3PiA&s' },
-  { id: 5, title: 'Featured Item 5', description: 'This is a new featured item', imageUrl: 'https://img.gkbcdn.com/p/2021-04-07/Faltbares-Laufband-f-r-zu-Hause--Trainingsger-te-mit-herunterladbarer-App--USB-Bluetooth-und-AUX-Konnektivit-t--LED-Anzeige--schwarz-458305-8._w800_p1_.jpg' },
+  { id: 1, title: 'Children’s Art Marker Set', description: 'A colorful 12-color double-headed marker set perfect for young artists.', imageUrl: 'https://image.made-in-china.com/226f3j00hdeVWPJniNpK/12-Color-Small-Double-Headed-Children-s-Art-Line-Marker-Pen.webp' },
+  { id: 2, title: 'Bicycle Black Model', description: 'A stylish black bicycle designed for comfort and performance, ideal for daily commutes or casual rides.', imageUrl: 'https://5.imimg.com/data5/IX/WH/AX/SELLER-24532083/ridley-dean-105-x-small-black-bicycle-500x500.jpg' },
+  { id: 3, title: 'Classic Bicycle Model', description: 'This bicycle is built for durability, featuring a sleek frame and smooth gear system, perfect for city roads.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtRUBdnegwIkMIwyq0BB1B7AW1B_-5O3PiA&s' },
+  { id: 4, title: 'Folding Treadmill', description: 'Compact folding treadmill with a high-tech LED display for home workouts, featuring Bluetooth connectivity for a seamless experience.', imageUrl: 'https://img.gkbcdn.com/p/2021-04-07/Faltbares-Laufband-f-r-zu-Hause--Trainingsger-te-mit-herunterladbarer-App--USB-Bluetooth-und-AUX-Konnektivit-t--LED-Anzeige--schwarz-458305-8._w800_p1_.jpg' },
+  { id: 5, title: 'Fitness Resistance Bands', description: 'Set of 5 resistance bands with different strength levels for effective home workouts and muscle toning.', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdZX0RPHCWetbJHPsw3WeDfJwU7xa0Njtdmg&s' },
 ];
 
 const Section2: React.FC = () => {
@@ -51,7 +51,6 @@ const Section2: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* Left Arrow Button */}
         {isHovered && (
           <button 
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-800 transition duration-300"
@@ -62,7 +61,6 @@ const Section2: React.FC = () => {
             </svg>
           </button>
         )}
-        {/* Right Arrow Button */}
         {isHovered && (
           <button 
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-800 transition duration-300"

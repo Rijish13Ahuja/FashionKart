@@ -18,7 +18,6 @@ interface Product {
   brand: string; 
 }
 
-
 const ProductListing: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -77,10 +76,13 @@ const ProductListing: React.FC = () => {
   }, [priceRange, selectedCategory, selectedBrand, selectedRating, products]);
 
   const handleAddToCart = (product: Product) => {
+    // Ensure image_url is defined and not null before calling split
+    const imageUrl = product.image_url?.split(',')[0] || ''; // Use an empty string if image_url is undefined
+
     const cartItem = {
       id: product.id,
       name: product.name,
-      image: product.image_url.split(',')[0], // Use the first image for cart
+      image: imageUrl,
       price: product.reduced_price,
       quantity: 1,
     };
@@ -174,7 +176,9 @@ const ProductListing: React.FC = () => {
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-4 gap-6">
               {filteredProducts.map((product) => {
-                const images = product.image_url.split(',').map((url) => url.trim());
+                // Ensure image_url is defined before splitting
+                const images = product.image_url?.split(',').map((url) => url.trim()) || []; // Default to empty array if image_url is undefined
+
                 return (
                   <div
                     key={product.id}
