@@ -21,7 +21,6 @@ const Categories: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCategoryClick = (categoryName: string) => {
-    // Navigate to the products page with the selected category
     navigate(`/products?category=${categoryName}`);
   };
 
