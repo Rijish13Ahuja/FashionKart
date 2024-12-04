@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
 const section6Items = [
-  { id: 1, title: 'Godrej Refrigerator', description: 'From ₹7,240', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/k0lbdzk0/refrigerator-new/z/u/p/r-d-epro-205-tai-5-2-2-godrej-original-imafkfuvtcgzctyk.jpeg?q=70' },
-  { id: 2, title: 'Double Door Refrigerator', description: 'From ₹16,129', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/kyhlfgw0/refrigerator-new/x/h/w/-original-imagaqz4nmhrtzbr.jpeg?q=70' },
-  { id: 3, title: 'Semi Automatic Washing Machine', description: 'Buy Now', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/xif0q/washing-machine-new/k/h/9/-original-imagjyg65pwjczbp.jpeg?q=70' },
-  { id: 4, title: 'Top Load Washing Machine', description: 'Buy now', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/l0igvww0/washing-machine-new/z/0/q/-original-imagca3uaazrwmhy.jpeg?q=70' },
-  { id: 5, title: 'Samsung Refrigerator', description: 'From ₹12,690', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/kyhlfgw0/refrigerator-new/j/s/p/-original-imagaqz4afczvvnm.jpeg?q=70' },
-  { id: 6, title: 'Energy Efficient Refrigerator', description: 'From ₹14,590', imageUrl: 'https://rukminim2.flixcart.com/image/612/612/l3xcr680/refrigerator-new/x/9/z/-original-imagewc72ff2tdyu.jpeg?q=70' },
+  { id: 1, title: 'Godrej Refrigerator', description: 'From ₹7,240', imageUrl: 'https://i.pinimg.com/originals/0e/cb/54/0ecb545f35ea4990906cff1af4897e75.jpg' },
+  { id: 2, title: 'Double Door Refrigerator', description: 'From ₹16,129', imageUrl: 'https://5.imimg.com/data5/HU/ZR/EO/SELLER-29248935/smart-refrigerator.jpg' },
+  { id: 3, title: 'Semi Automatic Washing Machine', description: 'Buy Now', imageUrl: 'https://m.economictimes.com/thumb/msid-98537702,width-640,height-480,resizemode-7/lg-242-l-3-star-smart-inverter-frost-free-double-door-refrigerator.jpg' },
+  { id: 4, title: 'Top Load Washing Machine', description: 'Buy now', imageUrl: 'https://img.etimg.com/photo/msid-98537727,imgsize-3586/AmazonBasics564LInverterFrost-FreeSide-by-SideRefrigeratorwithWaterDispenser.jpg' },
+  { id: 5, title: 'Samsung Refrigerator', description: 'From ₹12,690', imageUrl: 'https://5.imimg.com/data5/RR/JL/CA/SELLER-3023569/refrigenator-500x500.png' },
+  { id: 6, title: 'Energy Efficient Refrigerator', description: 'From ₹14,590', imageUrl: 'https://thumbs.dreamstime.com/b/modern-refrigerator-isolated-white-background-76167751.jpg' },
 ];
 
 const Section6: React.FC = () => {

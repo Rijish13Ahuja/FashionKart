@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { getAllProducts, createProduct, updateProduct, deleteProduct, getProductById } from '../../services/ProductService.ts';
+import {
+  getAllProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProductById,
+} from '../../services/ProductService.ts';
+import { productValidationSchema } from '../admin/validations/productValidations';
+import * as Yup from 'yup';
 
 const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
@@ -11,7 +19,7 @@ const ProductManagement: React.FC = () => {
     originalPrice: '',
     reducedPrice: '',
     stock: '',
-    discount: ''
+    discount: '',
   });
 
   useEffect(() => {
@@ -26,58 +34,57 @@ const ProductManagement: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCreateProduct = async (e: React.FormEvent) => {
+  const validateAndSubmit = async (e: React.FormEvent, isUpdate: boolean, productId?: number) => {
     e.preventDefault();
-    const newProduct = {
-      name: formData.name,
-      category: formData.category,
-      imageUrl: formData.imageUrl,
-      originalPrice: parseFloat(formData.originalPrice),
-      reducedPrice: parseFloat(formData.reducedPrice),
-      stock: parseInt(formData.stock),
-      discount: formData.discount ? parseInt(formData.discount) : undefined
-    };
 
-    await createProduct(newProduct);
-    setFormData({
-      name: '',
-      category: '',
-      imageUrl: '',
-      originalPrice: '',
-      reducedPrice: '',
-      stock: '',
-      discount: ''
-    });
+    try {
+      // Validate form data using productValidationSchema
+      await productValidationSchema.validate({
+        name: formData.name,
+        category: formData.category,
+        imageUrl: formData.imageUrl,
+        originalPrice: parseFloat(formData.originalPrice),
+        reducedPrice: parseFloat(formData.reducedPrice),
+        stock: parseInt(formData.stock),
+        discount: formData.discount ? parseInt(formData.discount) : undefined,
+      });
 
-    const productsData = await getAllProducts();
-    setProducts(productsData);
-  };
+      const productData = {
+        name: formData.name,
+        category: formData.category,
+        imageUrl: formData.imageUrl,
+        originalPrice: parseFloat(formData.originalPrice),
+        reducedPrice: parseFloat(formData.reducedPrice),
+        stock: parseInt(formData.stock),
+        discount: formData.discount ? parseInt(formData.discount) : undefined,
+      };
 
-  const handleUpdateProduct = async (id: number) => {
-    const updatedProduct = {
-      name: formData.name,
-      category: formData.category,
-      imageUrl: formData.imageUrl,
-      originalPrice: parseFloat(formData.originalPrice),
-      reducedPrice: parseFloat(formData.reducedPrice),
-      stock: parseInt(formData.stock),
-      discount: formData.discount ? parseInt(formData.discount) : undefined
-    };
+      if (isUpdate && productId) {
+        await updateProduct(productId, productData);
+        setEditProduct(null);
+      } else {
+        await createProduct(productData);
+      }
 
-    await updateProduct(id, updatedProduct);
-    setEditProduct(null);
-    setFormData({
-      name: '',
-      category: '',
-      imageUrl: '',
-      originalPrice: '',
-      reducedPrice: '',
-      stock: '',
-      discount: ''
-    });
+      setFormData({
+        name: '',
+        category: '',
+        imageUrl: '',
+        originalPrice: '',
+        reducedPrice: '',
+        stock: '',
+        discount: '',
+      });
 
-    const productsData = await getAllProducts();
-    setProducts(productsData);
+      const productsData = await getAllProducts();
+      setProducts(productsData);
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        alert(`Validation Error: ${error.message}`);
+      } else {
+        alert('An unknown error occurred.');
+      }
+    }
   };
 
   const handleDeleteProduct = async (id: number) => {
@@ -96,7 +103,7 @@ const ProductManagement: React.FC = () => {
       originalPrice: product.originalPrice.toString(),
       reducedPrice: product.reducedPrice.toString(),
       stock: product.stock.toString(),
-      discount: product.discount?.toString() || ''
+      discount: product.discount?.toString() || '',
     });
   };
 
@@ -106,7 +113,9 @@ const ProductManagement: React.FC = () => {
 
       <form
         className="space-y-6 bg-white p-8 rounded-lg shadow-sm w-full"
-        onSubmit={editProduct ? (e) => { e.preventDefault(); handleUpdateProduct(editProduct.id); } : handleCreateProduct}
+        onSubmit={(e) =>
+          validateAndSubmit(e, !!editProduct, editProduct ? editProduct.id : undefined)
+        }
       >
         <div className="flex flex-col space-y-4">
           <div>
@@ -199,11 +208,16 @@ const ProductManagement: React.FC = () => {
       <h3 className="text-xl mt-8 text-center text-gray-700">Product List</h3>
       <ul className="space-y-6 mt-4">
         {products.map((product) => (
-          <li key={product.id} className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+          <li
+            key={product.id}
+            className="p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+          >
             <div>
               <h4 className="text-lg font-semibold text-gray-800">{product.name}</h4>
               <p className="text-gray-600">{product.category}</p>
-              <p className="text-green-600">${product.reducedPrice} (Discount: {product.discount}% off)</p>
+              <p className="text-green-600">
+                ${product.reducedPrice} (Discount: {product.discount}% off)
+              </p>
               <p className="text-gray-800">Stock: {product.stock}</p>
               <div className="mt-4 flex space-x-4">
                 <button

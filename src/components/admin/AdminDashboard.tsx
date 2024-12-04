@@ -6,6 +6,7 @@ interface Product {
   category: string;
   price: number;
   stock: number;
+  img_url?: string; // Optional field for product image URL
 }
 
 const AdminDashboard: React.FC = () => {
@@ -19,6 +20,7 @@ const AdminDashboard: React.FC = () => {
       try {
         const response = await fetch('http://localhost:3000/products');
         const productsData = await response.json();
+        console.log(productsData); // Check the response structure
         setProducts(productsData);
         setLoading(false);
       } catch (error) {
@@ -103,8 +105,8 @@ const AdminDashboard: React.FC = () => {
                   className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300"
                 >
                   <img
-                    src="https://via.placeholder.com/150"
-                    alt="product"
+                    src={product.img_url || 'https://via.placeholder.com/150?text=Product+Image'}
+                    alt={product.name}
                     className="w-full h-48 object-cover rounded-md mb-4"
                   />
                   {editingProductId === product.id ? (

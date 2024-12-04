@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers, updateUserStatus, deleteUser } from '../../services/UserService';
-import { FaCheckCircle, FaBan, FaTrash } from 'react-icons/fa'; 
+import { userValidationSchema } from '../admin/validations/userValidations'; // Import the validation schema
+import { FaCheckCircle, FaBan, FaTrash } from 'react-icons/fa';
+import * as Yup from 'yup';
 
 const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<any[]>([]);
@@ -20,18 +22,52 @@ const UserManagement: React.FC = () => {
     fetchUsers();
   }, []);
 
+  const validateUserAction = async (user: any, status?: string) => {
+    try {
+      await userValidationSchema.validate({
+        name: user.name,
+        email: user.email,
+        status: status || user.status,
+      });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        alert(`Validation Error: ${error.message}`);
+        throw error; // Prevent further action
+      }
+    }
+  };
+
   const handleUpdateStatus = async (id: number, status: string) => {
-    await updateUserStatus(id, status);
-    setUsers(prevUsers =>
-      prevUsers.map(user =>
-        user.id === id ? { ...user, status } : user
-      )
-    );
+    const userToUpdate = users.find((user) => user.id === id);
+
+    if (userToUpdate) {
+      try {
+        await validateUserAction(userToUpdate, status); // Validate before updating
+        await updateUserStatus(id, status);
+
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user.id === id ? { ...user, status } : user
+          )
+        );
+      } catch (error) {
+        console.error('Update status failed:', error);
+      }
+    }
   };
 
   const handleDeleteUser = async (id: number) => {
-    await deleteUser(id);
-    setUsers(users.filter(user => user.id !== id));
+    const userToDelete = users.find((user) => user.id === id);
+
+    if (userToDelete) {
+      try {
+        await validateUserAction(userToDelete); // Validate before deleting
+        await deleteUser(id);
+        setUsers(users.filter((user) => user.id !== id));
+      } catch (error) {
+        console.error('Delete user failed:', error);
+      }
+    }
   };
 
   const showConfirmationModal = (action: "activate" | "deactivate" | "delete", userId: number, userName: string) => {
@@ -50,7 +86,7 @@ const UserManagement: React.FC = () => {
         handleUpdateStatus(selectedUserId, newStatus);
       }
     }
-    setShowModal(false); 
+    setShowModal(false);
   };
 
   const handleModalCancel = () => {
@@ -67,8 +103,13 @@ const UserManagement: React.FC = () => {
             <div>Loading...</div>
           ) : (
             users.map((user) => (
-              <div key={user.id} className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                <h3 className="text-xl font-semibold text-gray-700">User: {user.name}</h3>
+              <div
+                key={user.id}
+                className="bg-white p-6 rounded-lg shadow-lg border border-gray-200"
+              >
+                <h3 className="text-xl font-semibold text-gray-700">
+                  User: {user.name}
+                </h3>
                 <p className="text-sm text-gray-600">Email: {user.email}</p>
                 <p className="text-sm text-gray-600">Status: {user.status}</p>
 

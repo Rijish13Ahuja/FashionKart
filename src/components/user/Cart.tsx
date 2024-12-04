@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { cartValidationSchema } from '../../utils/CartValidations'; // Import validation schema
 import 'react-toastify/dist/ReactToastify.css';
-import { FiShoppingCart } from 'react-icons/fi'; // Icon for empty cart
+import { FiShoppingCart } from 'react-icons/fi'; 
 
 const Cart: React.FC = () => {
   const { items, removeFromCart, updateQuantity, clearCart } = useCart();
@@ -32,23 +33,30 @@ const Cart: React.FC = () => {
     return subtotal - discount > 0 ? subtotal - discount : 0;
   };
 
-  const applyCoupon = () => {
-    if (coupon === 'SAVE10') {
-      setDiscount(10);
-      toast.success('Coupon applied! ₹10 discount added.');
-    } else if (coupon === 'SAVE50') {
-      setDiscount(50);
-      toast.success('Coupon applied! ₹50 discount added.');
-    } else {
-      setDiscount(0);
-      toast.error('Invalid coupon code!');
+  const applyCoupon = async () => {
+    try {
+      // Validate the coupon using the validation schema
+      await cartValidationSchema.validate({ coupon });
+
+      if (coupon === 'SAVE10') {
+        setDiscount(10);
+        toast.success('Coupon applied! ₹10 discount added.');
+      } else if (coupon === 'SAVE50') {
+        setDiscount(50);
+        toast.success('Coupon applied! ₹50 discount added.');
+      } else {
+        setDiscount(0);
+        toast.error('Invalid coupon code!');
+      }
+    } catch (error: any) {
+      // Show validation error message
+      toast.error(error.message);
     }
   };
 
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto flex flex-wrap px-4 py-8 gap-6">
-        {/* Cart Items Section */}
         <div className="flex-1 bg-white p-6 rounded-lg shadow-lg">
           <h1 className="text-3xl font-bold mb-6 text-gray-800">Shopping Cart</h1>
           {items.length > 0 ? (
@@ -121,8 +129,6 @@ const Cart: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* Summary Section */}
         {items.length > 0 && (
           <div className="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold mb-4 text-gray-800">Price Details</h2>

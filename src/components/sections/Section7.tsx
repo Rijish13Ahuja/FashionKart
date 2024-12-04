@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../Card';
 
 const section7Items = [
-  { id: 1, title: 'Pixel 9 Pro', description: '₹109,999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/mobile/n/e/k/-original-imagg5zw7fwvtnxv.jpeg?q=70' },
-  { id: 2, title: 'Women Solid Flared Dress', description: '₹239 999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/kzd147k0/dress/d/r/y/xs-flower-women-rayon-flared-dress-ans-fashion-original-imagbd8hjgyfezfa.jpeg?q=70' },
-  { id: 3, title: 'Women Viscose Rayon', description: '₹799 2,699', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/sari/f/a/t/free-15020-1505-hemvati-original-imaggpxa9xz3gz9b.jpeg?q=70' },
-  { id: 4, title: 'Men’s Mufflers', description: '₹122 999', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/scarf/t/o/r/solid-black-unisex-cashmilon-muffler-for-men-and-women-original-imaghs2gyjbvne6e.jpeg?q=70' },
-  { id: 5, title: 'High Neck Wool Sweater', description: '₹115 349', imageUrl: 'https://rukminim2.flixcart.com/image/312/312/xif0q/sweater/6/6/6/xxl-high-neck-sweater-alasi-original-imagncjeycrtjx5z.jpeg?q=70' },
+  { id: 1, title: 'Pixel 9 Pro', description: '₹109,999', imageUrl: 'https://media.croma.com/image/upload/v1723649007/Croma%20Assets/Communication/Mobiles/Images/309139_0_twgtjr.png' },
+  { id: 2, title: 'Women Solid Flared Dress', description: '₹239 999', imageUrl: 'https://n-img1.junaroad.com/uiproducts/21224892/zoom_0-1714739742.jpg' },
+  { id: 3, title: 'Women Viscose Rayon', description: '₹799 2,699', imageUrl: 'https://5.imimg.com/data5/SELLER/Default/2024/2/390394744/JF/RN/NJ/87960517/sa64-1-500x500.png' },
+  { id: 4, title: 'Men’s Mufflers', description: '₹122 999', imageUrl: 'https://pashtush.in/cdn/shop/files/pashtush-pashmina-pashtush-mens-fine-wool-reversible-muffler-soft-and-warm-brown-45536209699131.jpg?v=1715072633&width=1080' },
+  { id: 5, title: 'High Neck Wool Sweater', description: '₹115 349', imageUrl: 'https://5.imimg.com/data5/ANDROID/Default/2022/1/XB/DK/ME/57996730/product-jpeg.jpg' },
 ];
 
 const Section7: React.FC = () => {

@@ -60,13 +60,19 @@ const Section5: React.FC = () => {
         ))}
       </div>
 
-      {/* Right Side: Banner/Ad */}
-      <div className="w-1/3 flex items-center justify-center bg-gray-100 rounded-lg p-4">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
+      {/* Right Side: Banner/Ad with background image */}
+      <div
+        className="w-1/3 flex items-center justify-center bg-cover bg-center rounded-lg p-4"
+        style={{
+          backgroundImage:
+            'url(https://as1.ftcdn.net/v2/jpg/03/36/02/16/1000_F_336021650_EjlJR4juKvQ5isBEZQmEyrYuIlYzdaji.jpg)',
+        }}
+      >
+        <div className="text-center text-white bg-black bg-opacity-50 p-6 rounded-lg">
+          <h2 className="text-2xl font-bold text-gray-100 mb-2">
             Top Selling Smartphones
           </h2>
-          <p className="text-gray-600 mb-4">Latest Technology, Best Brands</p>
+          <p className="text-gray-300 mb-4">Latest Technology, Best Brands</p>
           <button
             onClick={() => navigate('/products?section=TopSellingSmartphones')}
             className="px-4 py-2 bg-yellow-400 text-gray-800 font-semibold rounded-lg hover:bg-yellow-500 transition"

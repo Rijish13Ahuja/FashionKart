@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { settingsValidationSchema } from '../../utils/SettingsValidations';
+import { toast } from 'react-toastify';
 
 const Settings: React.FC = () => {
   const [email, setEmail] = useState('johndoe@example.com');
@@ -14,24 +16,45 @@ const Settings: React.FC = () => {
     activityRecommendations: true,
   });
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      alert('Passwords do not match!');
-      return;
+    try {
+      await settingsValidationSchema.validate({
+        currentPassword,
+        newPassword,
+        confirmPassword,
+      });
+      if (newPassword !== confirmPassword) {
+        toast.error('Passwords do not match!');
+        return;
+      }
+      toast.success('Password updated successfully!');
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+    } catch (error: any) {
+      toast.error(error.message);
     }
-    alert('Password updated successfully!');
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
+  };
+
+  const handleSaveSettings = async () => {
+    try {
+      await settingsValidationSchema.validate({
+        email,
+        phone,
+        notifications,
+        privacy,
+      });
+      toast.success('Settings saved successfully!');
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="bg-white p-6 rounded-lg shadow-md max-w-4xl mx-auto">
         <h2 className="text-xl font-semibold mb-6">Settings</h2>
-
-        {/* Account Settings */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-4">Account Settings</h3>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -54,6 +77,12 @@ const Settings: React.FC = () => {
               />
             </div>
           </div>
+          <button
+            onClick={handleSaveSettings}
+            className="mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+          >
+            Save Settings
+          </button>
         </div>
 
         {/* Change Password */}

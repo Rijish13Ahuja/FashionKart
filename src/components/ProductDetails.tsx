@@ -23,7 +23,6 @@ const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
-    // Fetch product details by ID
     fetch(`http://localhost:3000/products/${id}`)
       .then((response) => response.json())
       .then((data) => setProduct(data))
@@ -69,9 +68,7 @@ const ProductDetails: React.FC = () => {
             <del className="text-gray-400">₹{product.original_price}</del>
           </p>
           <p
-            className={`mt-2 ${
-              product.stock > 0 ? 'text-blue-600' : 'text-red-600'
-            }`}
+            className={`mt-2 ${product.stock > 0 ? 'text-blue-600' : 'text-red-600'}`}
           >
             {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}
           </p>

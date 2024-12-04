@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { cartItemValidationSchema } from '../../utils/CartContextValidations';
 
 interface CartItem {
   id: number;
@@ -32,18 +33,26 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     localStorage.setItem('cartItems', JSON.stringify(items));
   }, [items]);
 
-  const addToCart = (item: CartItem) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
-      if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        );
-      }
-      return [...prevItems, { ...item, quantity: 1 }];
-    });
+  const addToCart = async (item: CartItem) => {
+    try {
+      // Validate the cart item using the schema
+      await cartItemValidationSchema.validate(item);
+
+      setItems((prevItems) => {
+        const existingItem = prevItems.find((cartItem) => cartItem.id === item.id);
+        if (existingItem) {
+          return prevItems.map((cartItem) =>
+            cartItem.id === item.id
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem
+          );
+        }
+        return [...prevItems, { ...item, quantity: 1 }];
+      });
+    } catch (error: any) {
+      console.error(error.message);
+      alert(error.message); // You can replace this with a toast or other UI feedback
+    }
   };
 
   const removeFromCart = (id: number) => {

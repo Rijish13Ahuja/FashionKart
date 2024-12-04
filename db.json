@@ -1,15 +1,23 @@
 {
   "users": [
     {
-      "status": "Active",
-      "id": "1"
+      "id": 1,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "hashed_password_1",
+      "address": "123 Main St, City, Country",
+      "phone": "123-456-7890"
     },
     {
-      "status": "Active",
-      "id": "2"
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "password": "hashed_password_2",
+      "address": "456 Elm St, City, Country",
+      "phone": "987-654-3210"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Sam Brown",
       "email": "sam.brown@example.com",
       "password": "hashed_password_3",
@@ -17,7 +25,7 @@
       "phone": "555-555-5555"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Emily White",
       "email": "emily.white@example.com",
       "password": "hashed_password_4",
@@ -25,7 +33,7 @@
       "phone": "333-444-5555"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Michael Green",
       "email": "michael.green@example.com",
       "password": "hashed_password_5",
@@ -33,7 +41,7 @@
       "phone": "444-555-6666"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Sarah King",
       "email": "sarah.king@example.com",
       "password": "hashed_password_6",
@@ -41,7 +49,7 @@
       "phone": "666-777-8888"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "David Harris",
       "email": "david.harris@example.com",
       "password": "hashed_password_7",
@@ -49,7 +57,7 @@
       "phone": "777-888-9999"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "Olivia Lewis",
       "email": "olivia.lewis@example.com",
       "password": "hashed_password_8",
@@ -57,7 +65,7 @@
       "phone": "888-999-0000"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "James Scott",
       "email": "james.scott@example.com",
       "password": "hashed_password_9",
@@ -65,7 +73,7 @@
       "phone": "999-000-1111"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Sophia Turner",
       "email": "sophia.turner@example.com",
       "password": "hashed_password_10",
@@ -73,21 +81,13 @@
       "phone": "000-111-2222"
     },
     {
-      "id": "9197",
-      "name": "Rijish",
-      "email": "rijishahuja@gmail.com",
-      "password": "1323"
-    },
-    {
-      "id": "a8be",
-      "name": "Rijish",
-      "email": "rhythm00ahuja@gmail.com",
-      "password": "1323"
+      "status": "Active",
+      "id": "1b55"
     }
   ],
   "orders": [
     {
-      "id": "1",
+      "id": 1,
       "user_id": 1,
       "products": [
         {
@@ -101,7 +101,7 @@
       "status": "Completed"
     },
     {
-      "id": "2",
+      "id": 2,
       "user_id": 2,
       "products": [
         {
@@ -115,7 +115,7 @@
       "status": "Completed"
     },
     {
-      "id": "3",
+      "id": 3,
       "user_id": 3,
       "products": [
         {
@@ -129,7 +129,7 @@
       "status": "Completed"
     },
     {
-      "id": "4",
+      "id": 4,
       "user_id": 4,
       "products": [
         {
@@ -143,7 +143,7 @@
       "status": "Processing"
     },
     {
-      "id": "5",
+      "id": 5,
       "user_id": 5,
       "products": [
         {
@@ -157,7 +157,7 @@
       "status": "Shipped"
     },
     {
-      "id": "6",
+      "id": 6,
       "user_id": 6,
       "products": [
         {
@@ -171,7 +171,7 @@
       "status": "Completed"
     },
     {
-      "id": "7",
+      "id": 7,
       "user_id": 7,
       "products": [
         {
@@ -185,7 +185,7 @@
       "status": "Cancelled"
     },
     {
-      "id": "8",
+      "id": 8,
       "user_id": 8,
       "products": [
         {
@@ -199,7 +199,7 @@
       "status": "Completed"
     },
     {
-      "id": "9",
+      "id": 9,
       "user_id": 9,
       "products": [
         {
@@ -213,7 +213,7 @@
       "status": "Shipped"
     },
     {
-      "id": "10",
+      "id": 10,
       "user_id": 10,
       "products": [
         {
@@ -229,550 +229,568 @@
   ],
   "products": [
     {
-      "id": "1",
+      "id": 1,
       "category": "Technology",
       "url": "https://example.com/product/1",
-      "name": "Smartphone XYZ",
-      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYrXlRsq97aw4d84DMNzdgCN0ehsqSsxoyfw&s",
+      "name": "iPhone 15",
+      "image_url": "https://img.freepik.com/free-photo/hand-holding-smartphone-with-abstract-wallpaper-coming-out-screen_23-2151033639.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/hand-holding-smartphone-with-abstract-wallpaper-coming-out-screen_23-2151033638.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/modern-smartphone-with-live-abstract-wallpaper-coming-out-screen_23-2151033640.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 10,
       "original_price": 500,
       "reduced_price": 450,
-      "stock": 25
+      "stock": 25,
+      "rating": 4,
+      "brand": "Apple"
     },
     {
-      "id": "2",
+      "id": 2,
       "category": "Technology",
       "url": "https://example.com/product/2",
-      "name": "Laptop ABC",
-      "image_url": "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/alienware-notebooks/alienwar-x16-mlk/gallery/notebook-alienware-x16-r2-gray-gallery-7.psd?fmt=pjpg&pscan=auto&scl=1&wid=4364&hei=2919&qlt=100,1&resMode=sharp2&size=4364,2919&chrss=full&imwidth=5000",
+      "name": "Laptop",
+      "image_url": "https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714075.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714003.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714081.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 15,
       "original_price": 1200,
       "reduced_price": 1020,
-      "stock": 40
+      "stock": 40,
+      "rating": 5,
+      "brand": "Dell"
     },
     {
-      "id": "3",
+      "id": 3,
       "category": "Technology",
       "url": "https://example.com/product/3",
-      "name": "Tablet Pro",
-      "image_url": "https://www.91-img.com/gallery_images_uploads/d/c/dc1db4b692c6a1699c9a708f049b6d17c37328e4.jpg?tr=h-340,c-at_max,q-80,t-true",
+      "name": "Tablet",
+      "image_url": "https://img.freepik.com/free-photo/view-3d-hand-holding-tablet_23-2150990227.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/mockup-image-tablet-pc-coffee-cup-wooden-table-cafe_1142-56950.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/tablet-pc-with-mobile-phone-coffee-cup-wooden-table-cafe_1142-58893.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 5,
       "original_price": 800,
       "reduced_price": 760,
-      "stock": 30
+      "stock": 30,
+      "rating": 3,
+      "brand": "Samsung"
     },
     {
-      "id": "4",
+      "id": 4,
       "category": "Technology",
       "url": "https://example.com/product/4",
-      "name": "Smartwatch X",
-      "image_url": "https://www.layers.shop/cdn/shop/files/Anarc-frost-1.webp?v=1731329485&width=1445",
+      "name": "Smartwatch",
+      "image_url": "https://img.freepik.com/free-psd/smartwatch-realistic-isolated-transparent-background_84443-1812.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/smartwatch-realistic-isolated-transparent-background_84443-1817.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039302.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 20,
       "original_price": 200,
       "reduced_price": 160,
-      "stock": 50
+      "stock": 50,
+      "rating": 4,
+      "brand": "Fitbit"
     },
     {
-      "id": "5",
+      "id": 5,
       "category": "Technology",
       "url": "https://example.com/product/5",
       "name": "Wireless Headphones",
-      "image_url": "https://www.sony.co.in/image/6145c1d32e6ac8e63a46c912dc33c5bb?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
+      "image_url": "https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039319.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039340.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039320.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 25,
       "original_price": 150,
       "reduced_price": 112.5,
-      "stock": 15
+      "stock": 15,
+      "rating": 5,
+      "brand": "Sony"
     },
     {
-      "id": "6",
+      "id": 6,
       "category": "Mobiles",
       "url": "https://example.com/product/6",
       "name": "OnePlus 9",
-      "image_url": "https://i0.wp.com/gotit.org.in/wp-content/uploads/2024/04/4-8.jpg",
+      "image_url": "https://img.freepik.com/free-photo/smart-phone-with-sunrise-mountain-screen-3d-rendering_1142-50920.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/digital-smart-phone-futuristic-background_1409-4092.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-psd/samsung-galaxy-s6-edge-is-new-smartphone-developed-by-apple-inc_1142-53006.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 10,
       "original_price": 650,
       "reduced_price": 585,
-      "stock": 30
+      "stock": 30,
+      "rating": 3,
+      "brand": "OnePlus"
     },
     {
-      "id": "7",
+      "id": 7,
       "category": "Mobiles",
       "url": "https://example.com/product/7",
       "name": "iPhone 12",
-      "image_url": "https://www.unboxify.in/cdn/shop/files/71cQWYVtcBL._SL1500.jpg?v=1690663716",
+      "image_url": "https://img.freepik.com/free-photo/3d-online-social-communication-background_1409-5841.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-psd/smartphone-with-blank-screen-white-background-3d-illustration_1142-60160.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-psd/phone-x-smartphone-white-background_1142-52959.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 5,
       "original_price": 800,
       "reduced_price": 760,
-      "stock": 20
+      "stock": 20,
+      "rating": 4,
+      "brand": "Apple"
     },
     {
-      "id": "8",
+      "id": 8,
       "category": "Mobiles",
       "url": "https://example.com/product/8",
       "name": "Samsung Galaxy S21",
-      "image_url": "https://images-cdn.ubuy.co.in/659146056223ae58d12ef4cf-samsung-galaxy-s21-5g-128gb-g991u-fully.jpg",
+      "image_url": "https://img.freepik.com/free-photo/smart-phone-with-sunrise-mountain-screen-3d-rendering_1142-50920.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/smartphone-with-black-screen-dark-background-3d-rendering_1142-50709.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-psd/smartphone-with-touch-screen-gray-background-3d-rendering_1142-61358.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 12,
-      "original_price": 900,
-      "reduced_price": 792,
-      "stock": 35
+      "original_price": 950,
+      "reduced_price": 836,
+      "stock": 25,
+      "rating": 4,
+      "brand": "Samsung"
     },
     {
-      "id": "9",
-      "category": "Mobiles",
+      "id": 9,
+      "category": "Home Appliances",
       "url": "https://example.com/product/9",
-      "name": "Google Pixel 5",
-      "image_url": "https://cdn.dxomark.com/wp-content/uploads/medias/post-176677/Google-Pixel-9-Pro-XL_featured-image-packshot-review.png",
+      "name": "Air Conditioner",
+      "image_url": "https://img.freepik.com/free-photo/black-air-conditioner-white-wall_23-2150918290.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/air-conditioner-remote-control-closeup_23-2150917287.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/air-conditioner-black-white-color-remote-control_23-2150918307.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 8,
-      "original_price": 700,
-      "reduced_price": 644,
-      "stock": 22
+      "original_price": 500,
+      "reduced_price": 460,
+      "stock": 15,
+      "rating": 5,
+      "brand": "LG"
     },
     {
-      "id": "10",
-      "category": "Mobiles",
+      "id": 10,
+      "category": "Home Appliances",
       "url": "https://example.com/product/10",
-      "name": "Xiaomi Mi 11",
-      "image_url": "https://i01.appmifile.com/v1/MI_18455B3E4DA706226CF7535A58E875F0267/pms_1666344667.93946102.png",
-      "discount": 15,
-      "original_price": 550,
-      "reduced_price": 467.5,
-      "stock": 18
+      "name": "Washing Machine",
+      "image_url": "https://img.freepik.com/free-photo/3d-realistic-front-loading-washing-machine-black-background_23-2150990992.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/washing-machine-front-loading-black-white-color_23-2150991002.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/washing-machine-wooden-floor-white-wall_23-2150991005.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
+      "discount": 18,
+      "original_price": 600,
+      "reduced_price": 492,
+      "stock": 10,
+      "rating": 4,
+      "brand": "Samsung"
     },
     {
-      "id": "11",
+      "id": 11,
       "category": "Lifestyle",
       "url": "https://example.com/product/11",
       "name": "Yoga Mat",
-      "image_url": "https://www.niviasports.com/cdn/shop/files/1_f74628ac-df66-4c71-b112-fd8253ce175a.jpg?v=1716799881",
+      "image_url": "https://img.freepik.com/free-photo/still-life-yoga-equipment_23-2151725272.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/still-life-foam-roller_23-2151817447.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/still-life-foam-roller_23-2151817438.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 20,
       "original_price": 50,
       "reduced_price": 40,
       "stock": 100
     },
     {
-      "id": "12",
+      "id": 12,
       "category": "Lifestyle",
       "url": "https://example.com/product/12",
       "name": "Fitness Tracker",
-      "image_url": "https://m.media-amazon.com/images/I/61YwaovfYFL.jpg",
+      "image_url": "https://img.freepik.com/free-photo/virtual-reality-headset-controls-your-futuristic-car-generated-by-ai_188544-13295.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/futuristic-virtual-reality-headset-illuminates-dark-studio-shot-generated-by-ai_188544-13298.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/digital-speedometer-glows-modern-car-dashboard-generated-by-ai_188544-13297.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469 ",
       "discount": 30,
       "original_price": 100,
       "reduced_price": 70,
       "stock": 70
     },
     {
-      "id": "13",
+      "id": 13,
       "category": "Lifestyle",
       "url": "https://example.com/product/13",
       "name": "Bicycle",
-      "image_url": "https://stryderbikes.com/cdn/shop/files/VolticX27BlkRed.jpg?v=1723894321",
+      "image_url": "https://img.freepik.com/free-photo/cool-bicycle-outdoors_23-2150884272.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/cool-bicycle-studio_23-2150884322.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/retro-bike-entrance_23-2150711858.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 5,
       "original_price": 300,
       "reduced_price": 285,
       "stock": 20
     },
     {
-      "id": "14",
+      "id": 14,
       "category": "Lifestyle",
       "url": "https://example.com/product/14",
-      "name": "Portable Blender",
-      "image_url": "https://m.media-amazon.com/images/I/716iF4+GMfL._AC_UF894,1000_QL80_.jpg",
+      "name": "Blender",
+      "image_url": "https://img.freepik.com/free-photo/brown-retro-electronic-blender-device_23-2151002832.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/brown-retro-electronic-blender-device_23-2151002847.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/brown-retro-electronic-blender-device_23-2151002846.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 40,
       "reduced_price": 36,
       "stock": 50
     },
     {
-      "id": "15",
+      "id": 15,
       "category": "Lifestyle",
       "url": "https://example.com/product/15",
       "name": "Electric Kettle",
-      "image_url": "https://m.media-amazon.com/images/I/61DXNDN5MFL._AC_UF894,1000_QL80_.jpg",
+      "image_url": "https://img.freepik.com/free-photo/kettle-making-delicious-tea_23-2151882962.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/kettle-making-delicious-tea_23-2151882951.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/close-up-air-fryer_23-2151723490.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 25,
       "original_price": 60,
       "reduced_price": 45,
       "stock": 30
     },
     {
-      "id": "16",
+      "id": 16,
       "category": "Beauty",
       "url": "https://example.com/product/16",
       "name": "Face Cream",
-      "image_url": "https://advikayurveda.com/image/cache/catalog/products/face-cream/brightening-face-cream/advik-ayurveda-brightening-face-cream-for-dark-spots-500x500.webp",
+      "image_url": "https://img.freepik.com/free-photo/moisturizer-product-beauty-care-with-pink-tones_23-2151005567.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/moisturizer-product-beauty-care-with-pink-tones_23-2151005569.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/moisturizer-product-beauty-care-with-pink-tones_23-2151005532.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 15,
       "original_price": 25,
       "reduced_price": 21.25,
       "stock": 150
     },
     {
-      "id": "17",
+      "id": 17,
       "category": "Beauty",
       "url": "https://example.com/product/17",
       "name": "Lipstick Set",
-      "image_url": "https://m.media-amazon.com/images/I/51xiypkk+0L._AC_UF1000,1000_QL80_.jpg",
+      "image_url": "https://img.freepik.com/free-photo/glamorous-collection-beauty-products-vibrant-colors-generated-by-artificial-intelligence_188544-90030.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/vibrant-collection-beauty-products-women-personal-care-generated-by-artificial-intelligence_188544-81932.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/3d-cartoon-beauty-products_23-2151503293.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469 ",
       "discount": 5,
       "original_price": 30,
       "reduced_price": 28.5,
       "stock": 100
     },
     {
-      "id": "18",
+      "id": 18,
       "category": "Beauty",
       "url": "https://example.com/product/18",
       "name": "Hair Straightener",
-      "image_url": "https://breeze-media.vega.co.in/media/catalog/product/cache/1ef41c8834aa6b772f4686b0f4051c34/1/_/1_8_15.jpg",
+      "image_url": "https://media.istockphoto.com/id/1354672509/photo/black-corded-hair-straightener-isolated-on-pink-background.jpg?s=612x612&w=0&k=20&c=b2D4qswTiY_UJVmPuF2VpyI4Hxz9AaqDw6Ibi81lvto=, https://media.istockphoto.com/id/1287400775/photo/cropped-view-of-woman-holding-hair-straightener-isolated-on-pink.jpg?s=612x612&w=0&k=20&c=l9b3pSdqcQsNzw_HPns3ogSiLM3ZUv9zasCAxQnBApQ=, https://media.istockphoto.com/id/1226995542/photo/hair-straightener-on-blue-background.jpg?s=612x612&w=0&k=20&c=9PyICU1-RF_8XyRlcQj-M7RaAifkHPRsigWar2PR9aQ=",
       "discount": 20,
       "original_price": 45,
       "reduced_price": 36,
       "stock": 60
     },
     {
-      "id": "19",
+      "id": 19,
       "category": "Beauty",
       "url": "https://example.com/product/19",
       "name": "Facial Mask",
-      "image_url": "https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/original/o3/COMBO_231215114746-_OM/0/K-A4RpVgmw-976728_combo_21-1.jpg",
+      "image_url": "https://img.freepik.com/free-photo/woman-using-pink-toned-cosmetic-product-her-face_23-2151005589.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/woman-using-pink-toned-cosmetic-product-her-face_23-2151005590.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/man-using-pink-beauty-product-his-face_23-2151005572.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 15,
       "reduced_price": 13.5,
       "stock": 200
     },
     {
-      "id": "20",
+      "id": 20,
       "category": "Beauty",
       "url": "https://example.com/product/20",
       "name": "Nail Polish Set",
-      "image_url": "https://rukminim2.flixcart.com/image/850/1000/xif0q/nail-polish/u/y/d/72-nail-polish-set-combo-6ml-each-of-12-pcs-gloss-high-shine-original-imah3nrszwydqwfy.jpeg?q=20&crop=false",
-      "discount": 8,
+      "image_url": "https://img.freepik.com/free-photo/3d-rendering-personal-care-products-fondant-pink_23-2151053877.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/beauty-care-cosmetic-product-with-pink-tones_23-2151005495.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/cosmetic-product-with-color-year-tones-3d-packaging_23-2151510158.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "original_price": 22,
       "reduced_price": 20.24,
       "stock": 50
     },
     {
-      "id": "21",
+      "id": 21,
       "category": "Entertainment",
       "url": "https://example.com/product/21",
       "name": "Bluetooth Speaker",
-      "image_url": "https://www.headphonezone.in/cdn/shop/files/Headphone-Zone-Marshall-Woburn-III-Black-05.jpg?v=1703152696&width=2048",
+      "image_url": "https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039348.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039335.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/rendering-smart-home-device_23-2151039374.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 70,
       "reduced_price": 63,
       "stock": 30
     },
     {
-      "id": "22",
+      "id": 22,
       "category": "Entertainment",
       "url": "https://example.com/product/22",
       "name": "Smart TV 4K",
-      "image_url": "https://m.media-amazon.com/images/I/816DliL7o8L._AC_UF894,1000_QL80_.jpg",
+      "image_url": "https://img.freepik.com/free-photo/view-computer-monitor-display_23-2150757445.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/tv-monitor-with-waterfall-stairs-forest-3d-rendering_1142-41935.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/tv-screen-wooden-table-front-lake-with-sunset_1142-56610.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 15,
       "original_price": 1200,
       "reduced_price": 1020,
       "stock": 10
     },
     {
-      "id": "23",
+      "id": 23,
       "category": "Entertainment",
       "url": "https://example.com/product/23",
       "name": "Game Console",
-      "image_url": "https://m.media-amazon.com/images/I/61OLtCcItCL.jpg",
+      "image_url": "https://img.freepik.com/free-photo/view-3d-video-game-controller_23-2151005755.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-video-game-controller_23-2151005788.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-video-game-controller_23-2151005841.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469 ",
       "discount": 20,
       "original_price": 500,
       "reduced_price": 400,
       "stock": 25
     },
     {
-      "id": "24",
+      "id": 24,
       "category": "Entertainment",
       "url": "https://example.com/product/24",
       "name": "Wireless Earbuds",
-      "image_url": "https://m.media-amazon.com/images/I/719xn0KawFL.jpg",
+      "image_url": "https://media.istockphoto.com/id/1157569862/photo/black-true-wireless-earbuds-with-power-bank-case-on-the-wooden-background.jpg?s=612x612&w=0&k=20&c=LTynXHAXSKYkvPAocswjj1U3XwoqNvh4XkYZNlvqTQo=, https://media.istockphoto.com/id/1531432282/photo/auricolari-wireless.jpg?s=612x612&w=0&k=20&c=MJkJt3vSg75HbvZVZxOaTOjkpW8GEEHHdd8JbjTjd5k=, https://media.istockphoto.com/id/1325137179/photo/modern-black-wireless-earbuds-isolated.jpg?s=612x612&w=0&k=20&c=JT7E6WC11Dy8Qpv2GLG2u8_ymzBD7wTIV2YLRrLVWSY=",
       "discount": 12,
       "original_price": 50,
       "reduced_price": 44,
       "stock": 80
     },
     {
-      "id": "25",
+      "id": 25,
       "category": "Entertainment",
       "url": "https://example.com/product/25",
-      "name": "Portable Projector",
-      "image_url": "https://m.media-amazon.com/images/I/51CnRBSVnrL.jpg",
+      "name": "Projector",
+      "image_url": "https://media.istockphoto.com/id/1213258809/photo/close-up-multimedia-projector-with-blurred-people-background.jpg?s=612x612&w=0&k=20&c=NRp0KHqo1VpdQx8rfnJTUOpPeIkjuKv3eU5ThWnUUp4=, https://media.istockphoto.com/id/1034337118/photo/projector-for-presentation-in-a-meeting-room.jpg?s=612x612&w=0&k=20&c=UBD3numLQJlpm_tZr1koljklpc3a4MJFMx-szsz_uq8=, https://media.istockphoto.com/id/162672464/photo/business-conference.jpg?s=612x612&w=0&k=20&c=Ue_RhbMxphD2jvFMPzW_FM__OAZ6ZwMJvXKCwaYUlPs= ",
       "discount": 18,
       "original_price": 150,
       "reduced_price": 123,
       "stock": 40
     },
     {
-      "id": "26",
+      "id": 26,
       "category": "Sports",
       "url": "https://example.com/product/26",
       "name": "Football",
-      "image_url": "https://cdn.pixabay.com/photo/2013/07/13/10/51/football-157930_1280.png",
+      "image_url": "https://media.istockphoto.com/id/91712739/photo/soccer-ball.jpg?s=612x612&w=0&k=20&c=AjTIvHy76Tl8VI1cHrWLnTin2BlzXySvIulRHWwmJ7s=, https://media.istockphoto.com/id/1715139919/photo/classic-football-ball-isolated-on-white.jpg?s=612x612&w=0&k=20&c=ZI0lh1yZcDglxi3JLLzrTodMsS548Dml8RVBzmibSXI=, https://media.istockphoto.com/id/610241662/photo/soccer-ball-isolated-on-the-white-background.jpg?s=612x612&w=0&k=20&c=f7EWJti8x_JFmDxA8CMJvi1ulMlPjTdDP69HBWy9Hb4=",
       "discount": 10,
       "original_price": 20,
       "reduced_price": 18,
       "stock": 100
     },
     {
-      "id": "27",
+      "id": 27,
       "category": "Sports",
       "url": "https://example.com/product/27",
       "name": "Tennis Racket",
-      "image_url": "https://images-cdn.ubuy.co.in/64c082e013c3ce2e2d213c54-wilson-burn-pink-25-in-junior-tennis.jpg",
+      "image_url": "https://media.istockphoto.com/id/1064972966/photo/3d-rendering-a-single-tennis-racquet-lying-with-a-yellow-ball-on-white-background.jpg?s=612x612&w=0&k=20&c=iRkCAnAmk1dezXXkWXrYoAAb_ALonRzW2xZ9Zv_zAc8=, https://media.istockphoto.com/id/178479911/photo/tennis-racket-black-and-white-style.jpg?s=612x612&w=0&k=20&c=RP-NT5zb8ml1EYbcELGtBoKjIme7XbOBkEjKpvT1MuY=, https://media.istockphoto.com/id/1051131134/vector/tennis-icon-on-white-background.jpg?s=612x612&w=0&k=20&c=gFiOceH1tVNoyBHtGVpmZ7qw5lUermLPBlAZbP7YHOo= ",
       "discount": 15,
       "original_price": 75,
       "reduced_price": 63.75,
       "stock": 50
     },
     {
-      "id": "28",
+      "id": 28,
       "category": "Sports",
       "url": "https://example.com/product/28",
       "name": "Yoga Ball",
-      "image_url": "https://m.media-amazon.com/images/I/61J7Dv9Y9ZL.jpg",
+      "image_url": "https://media.istockphoto.com/id/463837263/photo/a-large-orange-fitness-ball-on-a-white-background.jpg?s=612x612&w=is&k=20&c=IHnGWETHEMR4v-tW8qdIhglNNC5ocqr2_GVKp0N0GEc=, https://media.istockphoto.com/id/123120442/photo/pilates-ball.jpg?s=612x612&w=0&k=20&c=XEHm5g1_hdZEW77kkTdQNXWUBJ0LTGeu-6kTV5oMYe4=, https://media.istockphoto.com/id/1470263333/photo/fitness-ball-on-a-white-background-isolated.jpg?s=612x612&w=0&k=20&c=SWeuqmuOgY-RhoTUCfHCS6GzUv2gnw905yQsNu2CYMk=",
       "discount": 5,
       "original_price": 25,
       "reduced_price": 23.75,
       "stock": 60
     },
     {
-      "id": "29",
+      "id": 29,
       "category": "Sports",
       "url": "https://example.com/product/29",
       "name": "Dumbbells Set",
-      "image_url": "https://yoddhafitness.com/wp-content/uploads/2021/12/hexagon-dumbbells.webp",
+      "image_url": "https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114178.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/3d-gym-equipment_23-2151114179.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/kettlebell-fitness-still-life_23-2151739291.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 20,
       "original_price": 50,
       "reduced_price": 40,
       "stock": 75
     },
     {
-      "id": "30",
+      "id": 30,
       "category": "Sports",
       "url": "https://example.com/product/30",
       "name": "Running Shoes",
-      "image_url": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/01190add819e47c8a092653b9fd29bac_9366/Runfalcon_5_Running_Shoes_Black_IH7758_HM1.jpg",
+      "image_url": "https://img.freepik.com/free-photo/modern-leather-sports-shoe-untied-comfort-generated-by-ai_188544-25309.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/modern-sports-shoe-collection-men-fashion-generated-by-ai_188544-37344.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/colorful-sports-shoes-fashionable-outdoor-lifestyles-generated-by-ai_188544-24677.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 10,
       "original_price": 80,
       "reduced_price": 72,
       "stock": 40
     },
     {
-      "id": "31",
+      "id": 31,
       "category": "Travel",
       "url": "https://example.com/product/31",
       "name": "Travel Backpack",
-      "image_url": "https://m.media-amazon.com/images/I/91qVLIj62WL._AC_UY1100_.jpg",
+      "image_url": "https://img.freepik.com/free-photo/backpack-hiking-shoes-mountain-ai-generated-image_268835-6566.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/view-travel-adventure-essentials_23-2151383043.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/backpack-hiking-shoes-hiker-symbol-ai-generated-image_268835-6568.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 15,
       "original_price": 60,
       "reduced_price": 51,
       "stock": 30
     },
     {
-      "id": "32",
+      "id": 32,
       "category": "Travel",
       "url": "https://example.com/product/32",
       "name": "Portable Charger",
-      "image_url": "https://media.wired.com/photos/6504b2a1afe02332db973557/master/w_320%2Cc_limit/Ugreen_Power_Bank-SOURCE-Ugreen-Gear.jpg",
+      "image_url": "https://media.istockphoto.com/id/1141276335/photo/power-bank-for-charging-mobile-devices.jpg?s=612x612&w=0&k=20&c=1Pw25Xce3zaQ_cJCNzIzMATrq7O-8LQVSgknQWKRVDg=, https://media.istockphoto.com/id/868125100/photo/portable-external-power-bank-and-usb-cable-isolated-on-white-background-for-emergency-recharge.jpg?s=612x612&w=0&k=20&c=R6TOa6VYG1NCxaJo82Nw5RrLyAzuvQOCL31C8g7Ysas=, https://media.istockphoto.com/id/1160798609/photo/blue-power-bank-with-usb-c-cable.jpg?s=612x612&w=0&k=20&c=dTwPWVL2358JUxvXPyxHE_pWyS9PWLWctnBZ1S4N-Ck= ",
       "discount": 5,
       "original_price": 25,
       "reduced_price": 23.75,
       "stock": 60
     },
     {
-      "id": "33",
+      "id": 33,
       "category": "Travel",
       "url": "https://example.com/product/33",
       "name": "Luggage Set",
-      "image_url": "https://mokobara.com/cdn/shop/products/Ocean-Sunray_05286feb-a1b3-4016-8ed5-e0a64c903487-890505.jpg?v=1723528084&width=1707",
+      "image_url": "https://img.freepik.com/free-photo/cartoon-style-traveling-concept-with-baggage_23-2151129763.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/cartoon-style-traveling-concept-with-baggage_23-2151129798.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/cartoon-style-traveling-concept-with-baggage_23-2151129799.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469 ",
       "discount": 20,
       "original_price": 200,
       "reduced_price": 160,
       "stock": 15
     },
     {
-      "id": "34",
+      "id": 34,
       "category": "Travel",
       "url": "https://example.com/product/34",
       "name": "Travel Pillow",
-      "image_url": "https://m.media-amazon.com/images/I/81g3pyGvYkL._AC_UF894,1000_QL80_.jpg",
+      "image_url": "https://img.freepik.com/free-psd/bolster-isolated-transparent-background_191095-10114.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/bolster-isolated-transparent-background_191095-10103.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/bolster-isolated-transparent-background_191095-10105.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 8,
       "original_price": 30,
       "reduced_price": 27.6,
       "stock": 70
     },
     {
-      "id": "35",
+      "id": 35,
       "category": "Travel",
       "url": "https://example.com/product/35",
       "name": "Suitcase",
-      "image_url": "https://rukminim2.flixcart.com/image/850/1000/xif0q/suitcase/w/5/8/-original-imagy96dyhuuknx8.jpeg?q=90&crop=false",
+      "image_url": "https://img.freepik.com/free-psd/large-suitcase-with-wheels-handle-isolated-transparent-background_191095-19912.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/large-suitcase-with-wheels-handle-isolated-transparent-background_191095-19916.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/3d-suitcase-isolated-transparent-background_191095-16664.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 12,
       "original_price": 100,
       "reduced_price": 88,
       "stock": 40
     },
     {
-      "id": "36",
+      "id": 36,
       "category": "Grocery",
       "url": "https://example.com/product/36",
       "name": "Organic Apples",
-      "image_url": "https://5.imimg.com/data5/SELLER/Default/2023/1/AS/FO/QN/45117192/fresh-organic-apple.jpg",
+      "image_url": "https://img.freepik.com/free-photo/close-up-apples-branch_23-2150713362.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/close-up-apples-being-arranged-shop_23-2150713432.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/close-up-apple-tree_23-2150713254.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 5,
       "reduced_price": 4.5,
       "stock": 200
     },
     {
-      "id": "37",
+      "id": 37,
       "category": "Grocery",
       "url": "https://example.com/product/37",
       "name": "Rice Pack",
-      "image_url": "https://4.imimg.com/data4/GQ/RU/ANDROID-53192496/product-500x500.jpeg",
+      "image_url": "https://img.freepik.com/free-photo/close-up-delicious-asian-food_23-2150535856.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/quinoa-isolated-transparent-background_191095-34640.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid https://img.freepik.com/free-psd/hawaiian-haystack-isolated-transparent-background_191095-40257.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 15,
       "original_price": 30,
       "reduced_price": 25.5,
       "stock": 150
     },
     {
-      "id": "38",
+      "id": 38,
       "category": "Grocery",
       "url": "https://example.com/product/38",
       "name": "Whole Wheat Bread",
-      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-qzyE7KF1kM_GGDsAAwLS78dkoWMRtAW3gA&s",
+      "image_url": "https://img.freepik.com/free-psd/vollkornbrot-brown-bread-isolated-transparent-background_191095-24931.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/vollkornbrot-brown-bread-isolated-transparent-background_191095-27864.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid,https://img.freepik.com/free-psd/quick-bread-isolated-transparent-background_191095-27910.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 5,
       "original_price": 2,
       "reduced_price": 1.9,
       "stock": 500
     },
     {
-      "id": "39",
+      "id": 39,
       "category": "Grocery",
       "url": "https://example.com/product/39",
       "name": "Cereal Box",
-      "image_url": "https://tycoonpackaging.com/wp-content/uploads/2023/08/custom-mini-cereal-boxes.webp",
+      "image_url": "https://img.freepik.com/free-photo/gold-paper-bag-with-word-milk-it_1340-35993.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/gold-paper-bag-with-word-milk-it_1340-35990.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/gold-paper-bag-with-word-milk-it_1340-35970.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid ",
       "discount": 8,
       "original_price": 3.5,
       "reduced_price": 3.22,
       "stock": 250
     },
     {
-      "id": "40",
+      "id": 40,
       "category": "Grocery",
       "url": "https://example.com/product/40",
       "name": "Frozen Vegetables",
-      "image_url": "https://media.post.rvohealth.io/wp-content/uploads/2020/05/frozen-vegetables-732x549-thumbnail.jpg",
+      "image_url": "https://img.freepik.com/free-photo/cutting-board-with-vegetables-it-including-broccoli-carrots-peppers-other-vegetables_188544-18539.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/freshly-chopped-vegetables-wooden-cutting-board-generated-by-ai_188544-15225.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/healthy-vegan-salad-fresh-vegetables-wood-table-generated-by-ai_188544-15180.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 12,
       "original_price": 4,
       "reduced_price": 3.52,
       "stock": 300
     },
     {
-      "id": "41",
+      "id": 41,
       "category": "Technology",
       "url": "https://example.com/product/41",
       "name": "Digital Camera",
-      "image_url": "https://gppro.in/wp-content/uploads/2021/09/Nikon-Z5-Kit-with-24-200mm-F4-6.3-Lens-1-600x600.jpg",
+      "image_url": "https://img.freepik.com/free-psd/digital-camera-isolated-transparent-background_191095-29098.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/digital-camera-isolated-transparent-background_191095-25557.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-psd/3d-camera-isolated-transparent-background_191095-16435.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 25,
       "original_price": 450,
       "reduced_price": 337.5,
       "stock": 10
     },
     {
-      "id": "42",
+      "id": 42,
       "category": "Technology",
       "url": "https://example.com/product/42",
       "name": "Bluetooth Mouse",
-      "image_url": "https://m.media-amazon.com/images/I/71sAX-ce9rL.jpg",
+      "image_url": "https://img.freepik.com/free-photo/wireless-mouse-wheel-scrolling-data-input-tool-generated-by-ai_188544-27098.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/shiny-blue-computer-mouse-modern-business-generated-by-ai_188544-27391.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/glowing-computer-network-connects-modern-technology-development-generated-by-ai_24640-80886.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 30,
       "reduced_price": 27,
       "stock": 80
     },
     {
-      "id": "43",
+      "id": 43,
       "category": "Technology",
       "url": "https://example.com/product/43",
       "name": "Keyboard MX",
-      "image_url": "https://m.media-amazon.com/images/I/71skZeAyPuL._AC_UF1000,1000_QL80_.jpg",
+      "image_url": "https://img.freepik.com/free-photo/keyboard-old-typewriter-white-background-3d_1057-44909.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/keyboard-with-gold-bars-white-background-3d-illustration_1057-46155.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/keyboard-with-gold-bars-white-background-3d-illustration_1057-46155.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 15,
       "original_price": 70,
       "reduced_price": 59.5,
       "stock": 25
     },
     {
-      "id": "44",
+      "id": 44,
       "category": "Technology",
       "url": "https://example.com/product/44",
       "name": "Gaming Headset",
-      "image_url": "https://images-cdn.ubuy.co.in/65f9a0296dfa5b5ace4e5222-razer-blackshark-v2-se-wired-gaming.jpg",
+      "image_url": "https://img.freepik.com/free-photo/shiny-headphones-illuminate-nightclub-modern-entertainment-generated-by-ai_188544-25756.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/render-gradient-translucent-glass-molten-body-headset_1409-7762.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/gradient-translucent-glass-molten-body-headset_1409-7654.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 10,
       "original_price": 120,
       "reduced_price": 108,
       "stock": 15
     },
     {
-      "id": "45",
+      "id": 45,
       "category": "Technology",
       "url": "https://example.com/product/45",
       "name": "Gaming Mouse",
-      "image_url": "https://elitehubs.com/cdn/shop/products/razer-basilisk-v3-image-main-600x600-1-2.jpg?v=1683973180&width=533",
+      "image_url": "https://img.freepik.com/free-photo/bright-computer-equipment-illuminated-dark-office-background-generated-by-artificial-intelligence_24877-80953.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/close-up-air-fryer_23-2151723452.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/mouse-keyboard-dark-desk-background-generated-by-ai_188544-21853.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 5,
       "original_price": 40,
       "reduced_price": 38,
       "stock": 50
     },
     {
-      "id": "46",
+      "id": 46,
       "category": "Sports",
       "url": "https://example.com/product/46",
       "name": "Hiking Boots",
-      "image_url": "https://cdn.runrepeat.com/storage/gallery/buying_guide_primary/43/best-lightweight-hiking-boots-20020534-main.jpg",
+      "image_url": "https://img.freepik.com/free-photo/pair-shoes-rock-mountain_32991-2566.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/mud-caked-leather-hiking-boots-trek-through-nature-generated-by-ai_188544-11759.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/dirty-leather-hiking-boots-trudge-through-muddy-nature-generated-by-ai_188544-39318.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid",
       "discount": 12,
       "original_price": 100,
       "reduced_price": 88,
       "stock": 40
     },
     {
-      "id": "47",
+      "id": 47,
       "category": "Sports",
       "url": "https://example.com/product/47",
       "name": "Baseball Bat",
-      "image_url": "https://rukminim2.flixcart.com/image/850/1000/kqgyhe80/bat/z/f/x/600-aluminum-basball-bat-34-34-inch-aluminum-basball-bat-34-kk-original-imag4gwwypszjdvx.jpeg?q=90&crop=false",
-      "discount": 8,
+      "image_url": "https://media.istockphoto.com/id/1490197741/photo/wooden-baseball-bat-isolated-on-white-sports-equipment.jpg?s=612x612&w=0&k=20&c=iXskKO1fQt8oq8jVgRoiQHhZ-fCasiWaySSiOsMOYvE=, https://media.istockphoto.com/id/611325552/photo/baseball-bat.jpg?s=612x612&w=0&k=20&c=ZE_AeL7_291u7c2ZJo0OZUcooTGDePhMPlU4EERO8d0=, https://media.istockphoto.com/id/92896787/photo/baseball-bat.jpg?s=612x612&w=0&k=20&c=8ZtqtmHIILaz7HfDpuvmI-EkzUFt1T5et25hKOvkGA4=",
       "original_price": 25,
       "reduced_price": 23,
       "stock": 100
     },
     {
-      "id": "48",
+      "id": 48,
       "category": "Sports",
       "url": "https://example.com/product/48",
       "name": "Tennis Balls Pack",
-      "image_url": "https://m.media-amazon.com/images/I/614BsJVOvbL.jpg",
+      "image_url": "https://img.freepik.com/free-photo/tennis-ball-sandy-surface-with-racket-s-shadow-depicting-outdoor-sports-banner-format_91128-3437.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-lots-tennis-balls_23-2151190001.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-lots-tennis-balls_23-2151190041.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 20,
       "original_price": 20,
       "reduced_price": 16,
       "stock": 120
     },
     {
-      "id": "49",
+      "id": 49,
       "category": "Sports",
       "url": "https://example.com/product/49",
       "name": "Basketball",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png",
+      "image_url": "https://img.freepik.com/free-photo/details-ball-sport_23-2151869771.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469&semt=ais_hybrid, https://img.freepik.com/free-photo/basketball-game-concept_23-2150910704.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/basketball-game-concept_23-2150910668.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 10,
       "original_price": 25,
       "reduced_price": 22.5,
       "stock": 80
     },
     {
-      "id": "50",
+      "id": 50,
       "category": "Sports",
       "url": "https://example.com/product/50",
       "name": "Soccer Shoes",
-      "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png",
+      "image_url": "https://img.freepik.com/free-photo/soccer-game-concept_23-2151043748.jpg?t=st=1733155217~exp=1733158817~hmac=c6dd343a5035dd30ba6409e40aeb90b6674318415a8db52226cdcaf7c8d10cbd&w=360, https://img.freepik.com/free-photo/soccer-game-concept_23-2151043749.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/soccer-shoes-field_23-2150888265.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
       "discount": 5,
       "original_price": 60,
       "reduced_price": 57,

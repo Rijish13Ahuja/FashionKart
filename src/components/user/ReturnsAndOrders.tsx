@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { toast } from 'react-toastify';
+import { orderValidationSchema } from '../../utils/ReturnsAndOrdersValidations';
 
 interface Order {
   id: number;
@@ -62,9 +63,14 @@ const ReturnsAndOrders: React.FC = () => {
     (order) => filter === 'All' || order.status === filter
   );
 
-  const handleReorder = (orderItems: Order['items']) => {
-    orderItems.forEach((item) => addToCart(item));
-    toast.success('Items added to cart for reorder!');
+  const handleReorder = async (orderItems: Order['items']) => {
+    try {
+      await Promise.all(orderItems.map((item) => orderValidationSchema.validate(item)));
+      orderItems.forEach((item) => addToCart(item));
+      toast.success('Items added to cart for reorder!');
+    } catch (error: any) {
+      toast.error(`Validation error: ${error.message}`);
+    }
   };
 
   const handleDownloadInvoice = (orderId: number) => {
@@ -81,6 +87,14 @@ const ReturnsAndOrders: React.FC = () => {
 
   const closeSupportModal = () => {
     setSupportModal({ orderId: 0, show: false });
+  };
+
+  const validateOrder = async (order: Order) => {
+    try {
+      await orderValidationSchema.validate(order);
+    } catch (error: any) {
+      toast.error(`Validation error for order ${order.id}: ${error.message}`);
+    }
   };
 
   return (
@@ -105,67 +119,71 @@ const ReturnsAndOrders: React.FC = () => {
         {/* Order List */}
         {filteredOrders.length > 0 ? (
           <div className="space-y-6">
-            {filteredOrders.map((order) => (
-              <div key={order.id} className="border border-gray-200 rounded-lg p-4">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-lg font-medium text-gray-800">Order #{order.id}</h2>
-                  <p
-                    className={`text-sm font-medium ${
-                      order.status === 'Delivered'
-                        ? 'text-green-600'
-                        : order.status === 'Canceled'
-                        ? 'text-red-600'
-                        : 'text-yellow-600'
-                    }`}
-                  >
-                    {order.status}
-                  </p>
-                </div>
-                <p className="text-gray-600 text-sm mt-1">Placed on {order.date}</p>
-                <p className="text-gray-800 font-medium mt-2">Total: ₹{order.total.toFixed(2)}</p>
+            {filteredOrders.map((order) => {
+              validateOrder(order); // Validate each order
 
-                {/* Order Items */}
-                <div className="mt-4 space-y-2">
-                  {order.items.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-4">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 rounded-lg object-cover"
-                      />
-                      <div>
-                        <p className="text-gray-800 font-medium">{item.name}</p>
-                        <p className="text-gray-600 text-sm">
-                          Quantity: {item.quantity} &middot; ₹{item.price.toFixed(2)}
-                        </p>
+              return (
+                <div key={order.id} className="border border-gray-200 rounded-lg p-4">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg font-medium text-gray-800">Order #{order.id}</h2>
+                    <p
+                      className={`text-sm font-medium ${
+                        order.status === 'Delivered'
+                          ? 'text-green-600'
+                          : order.status === 'Canceled'
+                          ? 'text-red-600'
+                          : 'text-yellow-600'
+                      }`}
+                    >
+                      {order.status}
+                    </p>
+                  </div>
+                  <p className="text-gray-600 text-sm mt-1">Placed on {order.date}</p>
+                  <p className="text-gray-800 font-medium mt-2">Total: ₹{order.total.toFixed(2)}</p>
+
+                  {/* Order Items */}
+                  <div className="mt-4 space-y-2">
+                    {order.items.map((item) => (
+                      <div key={item.id} className="flex items-center space-x-4">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 rounded-lg object-cover"
+                        />
+                        <div>
+                          <p className="text-gray-800 font-medium">{item.name}</p>
+                          <p className="text-gray-600 text-sm">
+                            Quantity: {item.quantity} &middot; ₹{item.price.toFixed(2)}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                {/* Actions */}
-                <div className="flex justify-end space-x-4 mt-4">
-                  <button
-                    onClick={() => handleReorder(order.items)}
-                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                  >
-                    Reorder
-                  </button>
-                  <button
-                    onClick={() => handleDownloadInvoice(order.id)}
-                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
-                  >
-                    Download Invoice
-                  </button>
-                  <button
-                    onClick={() => openSupportModal(order.id)}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                  >
-                    Support
-                  </button>
+                  {/* Actions */}
+                  <div className="flex justify-end space-x-4 mt-4">
+                    <button
+                      onClick={() => handleReorder(order.items)}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    >
+                      Reorder
+                    </button>
+                    <button
+                      onClick={() => handleDownloadInvoice(order.id)}
+                      className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
+                    >
+                      Download Invoice
+                    </button>
+                    <button
+                      onClick={() => openSupportModal(order.id)}
+                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                    >
+                      Support
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-20">

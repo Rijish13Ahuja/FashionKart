@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import successAnimation from '../../animations/success.json';
+import { checkoutValidationSchema } from '../../utils/CheckoutValidations'; // Import the validation schema
 
 const Checkout: React.FC = () => {
   const { items, clearCart } = useCart();
@@ -14,21 +15,25 @@ const Checkout: React.FC = () => {
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const handleSubmit = () => {
-    if (!address) {
-      toast.error('Please enter your address.');
-      return;
+  const handleSubmit = async () => {
+    try {
+      // Validate the checkout inputs
+      await checkoutValidationSchema.validate({ address, paymentMethod });
+
+      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+      const newOrder = { items, total, address, paymentMethod, date: new Date() };
+      localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
+
+      setOrderPlaced(true);
+      clearCart();
+
+      setTimeout(() => {
+        navigate('/');
+      }, 4000);
+    } catch (error: any) {
+      // Display validation error
+      toast.error(error.message);
     }
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
-    const newOrder = { items, total, address, paymentMethod, date: new Date() };
-    localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
-
-    setOrderPlaced(true);
-    clearCart();
-
-    setTimeout(() => {
-      navigate('/');
-    }, 4000);
   };
 
   if (orderPlaced) {

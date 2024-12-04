@@ -9,15 +9,15 @@ interface Product {
   category: string;
   url: string;
   name: string;
-  image_url: string;
+  image_url: string; 
   discount: number;
   original_price: number;
   reduced_price: number;
   stock: number;
-  customer_ratings: number;
-  brand: string;
-  color: string;
+  rating: number; 
+  brand: string; 
 }
+
 
 const ProductListing: React.FC = () => {
   const location = useLocation();
@@ -26,14 +26,17 @@ const ProductListing: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-  // Filters state
-  const [priceRange, setPriceRange] = useState([0, 10000]);
+  // State hooks for filters
+  const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   useEffect(() => {
-    // Fetch products data
+    const queryParams = new URLSearchParams(location.search);
+    const categoryFromUrl = queryParams.get('category');
+    setSelectedCategory(categoryFromUrl);
+
     fetch(`http://localhost:3000/products`)
       .then((response) => response.json())
       .then((data) => {
@@ -41,9 +44,8 @@ const ProductListing: React.FC = () => {
         setFilteredProducts(data);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [location.search]);
 
-  // Apply filters
   useEffect(() => {
     let filtered = products;
 
@@ -65,9 +67,9 @@ const ProductListing: React.FC = () => {
       filtered = filtered.filter((product) => product.brand === selectedBrand);
     }
 
-    if (selectedRating) {
+    if (selectedRating !== null) {
       filtered = filtered.filter(
-        (product) => product.customer_ratings >= selectedRating
+        (product) => product.rating >= selectedRating // Filtering by 'rating'
       );
     }
 
@@ -78,16 +80,15 @@ const ProductListing: React.FC = () => {
     const cartItem = {
       id: product.id,
       name: product.name,
-      image: product.image_url,
+      image: product.image_url.split(',')[0], // Use the first image for cart
       price: product.reduced_price,
       quantity: 1,
     };
 
     addToCart(cartItem);
 
-    // Show success toast for Add to Cart
     toast.success(`${product.name} added to cart!`, {
-      position: "bottom-right",
+      position: 'bottom-right',
       autoClose: 3000,
     });
   };
@@ -95,23 +96,23 @@ const ProductListing: React.FC = () => {
   const handleBuyNow = (product: Product) => {
     navigate('/checkout', { state: { product } });
 
-    // Show info toast for Buy Now
     toast.info(`Proceeding to buy ${product.name}`, {
-      position: "bottom-right",
+      position: 'bottom-right',
       autoClose: 3000,
     });
   };
 
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    navigate(`/products?category=${category}`);
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Toast Container */}
       <ToastContainer />
       <div className="container mx-auto flex px-4">
-        {/* Filters Sidebar */}
         <aside className="w-1/5 p-4 bg-white shadow-lg rounded-lg">
           <h2 className="text-xl font-semibold mb-6 border-b pb-2">Filters</h2>
-
-          {/* Price Range */}
           <div className="mb-6">
             <h3 className="font-semibold text-gray-800 mb-2">Price Range</h3>
             <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
@@ -133,13 +134,11 @@ const ProductListing: React.FC = () => {
               ₹{priceRange[0]} - ₹{priceRange[1]}
             </p>
           </div>
-
-          {/* Category */}
           <div className="mb-6">
             <h3 className="font-semibold text-gray-800 mb-2">Category</h3>
             <select
               className="border p-2 w-full bg-gray-50 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              onChange={(e) => setSelectedCategory(e.target.value)}
+              onChange={(e) => handleCategoryChange(e.target.value)}
               value={selectedCategory || ''}
             >
               <option value="">All Categories</option>
@@ -153,108 +152,83 @@ const ProductListing: React.FC = () => {
               <option value="Travel">Travel</option>
             </select>
           </div>
-
-          {/* Brand */}
           <div className="mb-6">
-            <h3 className="font-semibold text-gray-800 mb-2">Brand</h3>
+            <h3 className="font-semibold text-gray-800 mb-2">Customer Rating</h3>
             <select
               className="border p-2 w-full bg-gray-50 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              onChange={(e) => setSelectedBrand(e.target.value)}
-              value={selectedBrand || ''}
+              onChange={(e) => setSelectedRating(parseInt(e.target.value))}
+              value={selectedRating || ''}
             >
-              <option value="">All Brands</option>
-              <option value="Samsung">Samsung</option>
-              <option value="Apple">Apple</option>
-              <option value="OnePlus">OnePlus</option>
-              <option value="Sony">Sony</option>
+              <option value="">All Ratings</option>
+              <option value={1}>1 Star & Above</option>
+              <option value={2}>2 Stars & Above</option>
+              <option value={3}>3 Stars & Above</option>
+              <option value={4}>4 Stars & Above</option>
+              <option value={5}>5 Stars</option>
             </select>
-          </div>
-
-          {/* Customer Ratings */}
-          <div className="mb-6">
-            <h3 className="font-semibold text-gray-800 mb-2">Customer Ratings</h3>
-            {[4, 3, 2, 1].map((rating) => (
-              <div key={rating} className="flex items-center mb-2">
-                <input
-                  type="radio"
-                  id={`rating-${rating}`}
-                  name="rating"
-                  value={rating}
-                  onChange={() => setSelectedRating(rating)}
-                  className="w-4 h-4 text-blue-600 focus:ring focus:ring-blue-300"
-                />
-                <label
-                  htmlFor={`rating-${rating}`}
-                  className="ml-3 text-sm text-gray-700"
-                >
-                  {rating} ★ & above
-                </label>
-              </div>
-            ))}
           </div>
         </aside>
 
-        {/* Products List */}
         <div className="w-4/5 p-6">
           <h1 className="text-2xl font-semibold mb-4 text-gray-800">Products</h1>
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
-                <div
-                  key={product.id}
-                  className="border border-gray-200 rounded-lg shadow-md bg-white transition-transform transform hover:scale-105 hover:shadow-lg p-4"
-                >
-                  <div className="w-full h-32 flex items-center justify-center bg-gray-100 rounded-md overflow-hidden mb-3">
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="max-w-full max-h-full object-contain transition-transform transform hover:scale-110"
-                    />
-                  </div>
-
-                  <h3 className="text-sm font-medium text-gray-900 truncate">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs text-gray-500 mb-1">{product.category}</p>
-
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-green-600 font-semibold text-sm">
-                      ₹{product.reduced_price.toFixed(2)}
-                    </span>
-                    <span className="text-gray-500 line-through text-xs">
-                      ₹{product.original_price.toFixed(2)}
-                    </span>
-                  </div>
-                  <p className="text-xs text-green-500">{product.discount}% OFF</p>
-                  <p
-                    className={`text-xs ${
-                      product.stock > 0 ? 'text-blue-600' : 'text-red-600'
-                    }`}
+              {filteredProducts.map((product) => {
+                const images = product.image_url.split(',').map((url) => url.trim());
+                return (
+                  <div
+                    key={product.id}
+                    className="border border-gray-200 rounded-lg shadow-md bg-white p-4"
                   >
-                    {product.stock > 0
-                      ? `${product.stock} in stock`
-                      : 'Out of stock'}
-                  </p>
-
-                  <div className="mt-3 flex space-x-2 justify-between">
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-2 py-1 rounded-md shadow-md text-xs hover:from-yellow-500 hover:to-yellow-600 transition"
-                    >
-                      Add to Cart
-                    </button>
-                    <button
-                      onClick={() => handleBuyNow(product)}
-                      className="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 py-1 rounded-md shadow-md text-xs hover:from-blue-600 hover:to-blue-700 transition"
-                    >
-                      Buy Now
-                    </button>
+                    <div className="relative group">
+                      <div className="w-full h-40 overflow-hidden rounded-md">
+                        {images.map((image, index) => (
+                          <img
+                            key={index}
+                            src={image}
+                            alt={product.name}
+                            className={`w-full h-40 object-contain absolute inset-0 transition-opacity duration-500 ${
+                              index === 0 ? 'opacity-100' : 'opacity-0'
+                            } group-hover:opacity-100`}
+                            style={{
+                              animation: `fade ${images.length * 1.5}s infinite`,
+                              animationDelay: `${index * 1.5}s`,
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <h2 className="text-lg font-medium text-gray-800 mt-4">
+                      {product.name}
+                    </h2>
+                    <p className="text-sm text-gray-600">Brand: {product.brand}</p>
+                    <p className="text-sm text-gray-600">Category: {product.category}</p>
+                    <p className="text-xl font-semibold text-gray-900">
+                      ₹{product.reduced_price}{' '}
+                      <span className="text-sm line-through text-gray-500">
+                        ₹{product.original_price}
+                      </span>
+                    </p>
+                    <div className="mt-4 flex justify-between">
+                      <button
+                        onClick={() => handleAddToCart(product)}
+                        className="bg-blue-600 text-white px-4 py-2 rounded-md"
+                      >
+                        Add to Cart
+                      </button>
+                      <button
+                        onClick={() => handleBuyNow(product)}
+                        className="bg-green-600 text-white px-4 py-2 rounded-md"
+                      >
+                        Buy Now
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
-            <p className="text-gray-600">No products found matching filters.</p>
+            <p>No products available.</p>
           )}
         </div>
       </div>

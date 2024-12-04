@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { profileValidationSchema } from '../../utils/ProfileValidations'; // Import the validation schema
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface User {
   name: string;
@@ -29,20 +32,50 @@ const Profile: React.FC = () => {
     }
   }, []);
 
-  const handleSavePhone = () => {
-    if (!user) return;
-    const updatedUser = { ...user, phone: newPhone };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    setEditingPhone(false);
+  const handleSavePhone = async () => {
+    try {
+      await profileValidationSchema.validate({ phone: newPhone });
+      if (!user) return;
+      const updatedUser = { ...user, phone: newPhone };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      setEditingPhone(false);
+      toast.success('Phone number updated successfully!');
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
-  const handleAddAddress = () => {
-    if (!user || !newAddress.trim()) return;
-    const updatedUser = { ...user, address: [...(user.address || []), newAddress] };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    setNewAddress('');
+  const handleAddAddress = async () => {
+    try {
+      await profileValidationSchema.validate({ address: newAddress });
+      if (!user || !newAddress.trim()) return;
+      const updatedUser = { ...user, address: [...(user.address || []), newAddress] };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      setNewAddress('');
+      toast.success('Address added successfully!');
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    try {
+      await profileValidationSchema.validate({
+        newPassword,
+        confirmNewPassword,
+      });
+      if (!user) return;
+      const updatedUser = { ...user, password: newPassword };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      setNewPassword('');
+      setConfirmNewPassword('');
+      toast.success('Password changed successfully!');
+    } catch (error: any) {
+      toast.error(error.message);
+    }
   };
 
   const handleDeleteAddress = (index: number) => {
@@ -51,20 +84,7 @@ const Profile: React.FC = () => {
     const updatedUser = { ...user, address: updatedAddresses };
     setUser(updatedUser);
     localStorage.setItem('user', JSON.stringify(updatedUser));
-  };
-
-  const handleChangePassword = () => {
-    if (newPassword !== confirmNewPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-    if (!user) return;
-    const updatedUser = { ...user, password: newPassword };
-    setUser(updatedUser);
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    setNewPassword('');
-    setConfirmNewPassword('');
-    alert('Password changed successfully!');
+    toast.info('Address removed successfully.');
   };
 
   const handleToggleNotifications = (type: 'email' | 'sms') => {
@@ -74,6 +94,7 @@ const Profile: React.FC = () => {
       const updatedUser = { ...user, notifications: updatedNotifications };
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
+      toast.success('Notification preferences updated!');
     }
   };
 

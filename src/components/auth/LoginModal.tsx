@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import {
+  customerLoginValidation,
+  customerRegistrationValidation,
+} from '../auth/authValidations'; // Import validation schemas
+import * as Yup from 'yup'; // Import Yup for validation
 
 interface LoginModalProps {
   modalType: 'login' | 'register' | null;
@@ -37,15 +42,18 @@ const LoginModal: React.FC<LoginModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (modalType === 'register') {
-      if (password !== confirmPassword) {
-        showPopup('Passwords do not match!', 'error');
-        return;
-      }
+    try {
+      if (modalType === 'register') {
+        // Validate registration data
+        await customerRegistrationValidation.validate({
+          name,
+          email,
+          password,
+          confirmPassword,
+        });
 
-      const newUser = { name, email, password };
+        const newUser = { name, email, password };
 
-      try {
         const response = await fetch('http://localhost:3000/users', {
           method: 'POST',
           headers: {
@@ -60,14 +68,10 @@ const LoginModal: React.FC<LoginModalProps> = ({
         } else {
           throw new Error('Failed to register. Please try again.');
         }
-      } catch (error) {
-        showPopup(
-          error instanceof Error ? error.message : 'An unknown error occurred during registration.',
-          'error'
-        );
-      }
-    } else if (modalType === 'login') {
-      try {
+      } else if (modalType === 'login') {
+        // Validate login data
+        await customerLoginValidation.validate({ email, password });
+
         const response = await fetch('http://localhost:3000/users');
         const users = await response.json();
 
@@ -82,11 +86,14 @@ const LoginModal: React.FC<LoginModalProps> = ({
         } else {
           showPopup('Invalid email or password!', 'error');
         }
-      } catch (error) {
-        showPopup(
-          error instanceof Error ? error.message : 'An unknown error occurred during login.',
-          'error'
-        );
+      }
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        showPopup(error.message, 'error');
+      } else if (error instanceof Error) {
+        showPopup(error.message, 'error');
+      } else {
+        showPopup('An unknown error occurred.', 'error');
       }
     }
   };
@@ -229,10 +236,10 @@ const LoginModal: React.FC<LoginModalProps> = ({
                     showPassword
                       ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png'
                       : 'https://cdn-icons-png.flaticon.com/512/159/159605.png'
-                  }
-                  alt={showPassword ? 'Hide Password' : 'Show Password'}
-                  width="20"
-                />
+                }
+                alt={showPassword ? 'Hide Password' : 'Show Password'}
+                width="20"
+              />
               </button>
             </div>
           )}

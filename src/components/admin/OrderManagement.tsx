@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getAllOrders, updateOrderStatus, deleteOrder } from '../../services/OrderService';
+import { orderValidationSchema } from '../admin/validations/orderValidations';
+import * as Yup from 'yup';
 
 const OrderManagement: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
@@ -18,18 +20,41 @@ const OrderManagement: React.FC = () => {
   }, []);
 
   const handleUpdateStatus = async (id: number, status: string) => {
-    await updateOrderStatus(id, status);
-    setOrders(prevOrders =>
-      prevOrders.map(order =>
-        order.id === id ? { ...order, status } : order
-      )
-    );
-    setShowModal(false); 
+    const orderToUpdate = orders.find((order) => order.id === id);
+
+    if (orderToUpdate) {
+      try {
+        // Validate order data before updating
+        await orderValidationSchema.validate({
+          id: orderToUpdate.id,
+          customerName: orderToUpdate.customerName,
+          total: orderToUpdate.total,
+          status,
+        });
+
+        // If validation passes, proceed with API call
+        await updateOrderStatus(id, status);
+
+        // Update state
+        setOrders((prevOrders) =>
+          prevOrders.map((order) =>
+            order.id === id ? { ...order, status } : order
+          )
+        );
+        setShowModal(false);
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          alert(`Validation Error: ${error.message}`);
+        } else {
+          alert('An unknown error occurred.');
+        }
+      }
+    }
   };
 
   const handleDeleteOrder = async (id: number) => {
     await deleteOrder(id);
-    setOrders(orders.filter(order => order.id !== id));
+    setOrders(orders.filter((order) => order.id !== id));
     setShowModal(false);
   };
 
@@ -49,18 +74,23 @@ const OrderManagement: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-gray-50">
       <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Order Management</h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {loading ? (
             <div>Loading...</div>
           ) : (
             orders.map((order) => (
-              <div key={order.id} className="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                <h3 className="text-xl font-semibold text-gray-700">Order ID: {order.id}</h3>
+              <div
+                key={order.id}
+                className="bg-white p-6 rounded-lg shadow-lg border border-gray-200"
+              >
+                <h3 className="text-xl font-semibold text-gray-700">
+                  Order ID: {order.id}
+                </h3>
                 <p className="text-sm text-gray-600">Customer: {order.customerName}</p>
                 <p className="text-sm text-gray-600">Total: ${order.total}</p>
                 <p className="text-sm text-gray-600">Status: {order.status}</p>
-                
+
                 <div className="mt-4 flex justify-between items-center">
                   <button
                     onClick={() => openModal(order.id, 'markAsShipped')}
@@ -88,7 +118,11 @@ const OrderManagement: React.FC = () => {
               {actionType === 'markAsShipped' ? 'Mark Order as Shipped' : 'Delete Order'}
             </h3>
             <p className="text-gray-600">
-              Are you sure you want to {actionType === 'markAsShipped' ? 'mark this order as shipped' : 'delete this order'}?
+              Are you sure you want to{' '}
+              {actionType === 'markAsShipped'
+                ? 'mark this order as shipped'
+                : 'delete this order'}
+              ?
             </p>
             <div className="mt-4 flex justify-end space-x-4">
               <button

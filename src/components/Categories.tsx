@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Category {
   name: string;
@@ -16,20 +17,14 @@ const categories: Category[] = [
   { name: 'Grocery', imageUrl: 'https://rukminim2.flixcart.com/flap/58/58/image/29327f40e9c4d26b.png?q=100' },
 ];
 
-const Dropdown: React.FC = () => {
-  return (
-    <div className="absolute bg-white shadow-lg rounded-md w-48 py-2 mt-2 z-10">
-      <ul>
-        <li className="px-4 py-2 hover:bg-gray-100">Latest Trends</li>
-        <li className="px-4 py-2 hover:bg-gray-100">Top Products</li>
-        <li className="px-4 py-2 hover:bg-gray-100">New Arrivals</li>
-        <li className="px-4 py-2 hover:bg-gray-100">Popular Items</li>
-      </ul>
-    </div>
-  );
-};
-
 const Categories: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName: string) => {
+    // Navigate to the products page with the selected category
+    navigate(`/products?category=${categoryName}`);
+  };
+
   return (
     <div className="bg-white py-6">
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-16">
@@ -39,29 +34,10 @@ const Categories: React.FC = () => {
               <img
                 src={category.imageUrl}
                 alt={category.name}
-                className="w-28 h-28 object-cover rounded-full"
+                className="w-28 h-28 object-cover rounded-full cursor-pointer"
+                onClick={() => handleCategoryClick(category.name)}
               />
               <h3 className="text-center text-sm font-medium text-gray-900">{category.name}</h3>
-              {['Fashion', 'Home', 'Beauty', 'Technology', 'Lifestyle'].includes(category.name) && (
-                <>
-                  <div className="absolute bottom-0 right-0 w-4 h-4 bg-gray-700 text-white flex justify-center items-center rounded-full cursor-pointer group-hover:opacity-100 opacity-0 transition-opacity duration-300">
-                    <svg
-                      className="w-3 h-3"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
-
-                  <div className="group-hover:block hidden absolute top-12 left-0 transition-all duration-300">
-                    <Dropdown />
-                  </div>
-                </>
-              )}
             </div>
           ))}
         </div>
