@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import {
   customerLoginValidation,
   customerRegistrationValidation,
-} from '../auth/authValidations'; // Import validation schemas
-import * as Yup from 'yup'; // Import Yup for validation
+} from '../auth/authValidations';
+import * as Yup from 'yup';
 
 interface LoginModalProps {
   modalType: 'login' | 'register' | null;
@@ -21,14 +21,13 @@ const LoginModal: React.FC<LoginModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hashedPassword, setHashedPassword] = useState(''); // Displayed stars for password
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [hashedConfirmPassword, setHashedConfirmPassword] = useState(''); // Displayed stars for confirm password
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
   const [popupType, setPopupType] = useState<'success' | 'error' | null>(null);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   const showPopup = (message: string, type: 'success' | 'error') => {
     setPopupMessage(message);
@@ -36,7 +35,20 @@ const LoginModal: React.FC<LoginModalProps> = ({
     setTimeout(() => {
       setPopupMessage('');
       setPopupType(null);
-    }, 3000); // Popup disappears after 3 seconds
+      closeModal(); // Ensure modal closes after success
+    }, 3000);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setPassword(input);
+    setHashedPassword('*'.repeat(input.length));
+  };
+
+  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    setConfirmPassword(input);
+    setHashedConfirmPassword('*'.repeat(input.length));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,7 +56,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
     try {
       if (modalType === 'register') {
-        // Validate registration data
         await customerRegistrationValidation.validate({
           name,
           email,
@@ -64,12 +75,13 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
         if (response.ok) {
           showPopup('Account created successfully!', 'success');
-          setTimeout(closeModal, 3000); // Close modal after popup
+          setTimeout(() => {
+            setModalType('login');
+          }, 3000);
         } else {
           throw new Error('Failed to register. Please try again.');
         }
       } else if (modalType === 'login') {
-        // Validate login data
         await customerLoginValidation.validate({ email, password });
 
         const response = await fetch('http://localhost:3000/users');
@@ -81,8 +93,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
         if (existingUser) {
           handleLogin({ name: existingUser.name, email: existingUser.email });
-          showPopup('Logged in successfully!', 'success');
-          setTimeout(closeModal, 3000); // Close modal after popup
+          showPopup('Logged in successfully!', 'success'); // Trigger popup for login success
         } else {
           showPopup('Invalid email or password!', 'error');
         }
@@ -101,7 +112,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative">
-        {/* Popup Message */}
         {popupMessage && (
           <div
             className={`absolute top-4 left-1/2 transform -translate-x-1/2 px-4 py-2 rounded-lg text-center shadow-lg ${
@@ -112,7 +122,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
           </div>
         )}
 
-        {/* Modal Header */}
         <div className="flex justify-between items-center border-b px-6 py-4">
           <h3 className="text-lg font-semibold text-gray-800">
             {modalType === 'login' ? 'Welcome Back!' : 'Create Your Account'}
@@ -125,7 +134,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
           </button>
         </div>
 
-        {/* Tabs */}
         <div className="flex items-center border-b">
           <button
             onClick={() => setModalType('login')}
@@ -149,7 +157,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
           </button>
         </div>
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="px-6 py-4">
           {modalType === 'register' && (
             <div className="mb-4">
@@ -159,7 +166,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
               <input
                 type="text"
                 id="name"
-                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-black bg-white"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
@@ -172,9 +179,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
               Email Address
             </label>
             <input
-              type="email"
+              type="text"
               id="email"
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-black bg-white"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -188,58 +195,39 @@ const LoginModal: React.FC<LoginModalProps> = ({
             <input
               type={showPassword ? 'text' : 'password'}
               id="password"
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-black bg-white"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordChange}
               required
             />
             <button
               type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-3 top-2"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-8 text-gray-500 hover:text-gray-700"
             >
-              <img
-                src={
-                  showPassword
-                    ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png'
-                    : 'https://cdn-icons-png.flaticon.com/512/159/159605.png'
-                }
-                alt={showPassword ? 'Hide Password' : 'Show Password'}
-                width="20"
-              />
+              {showPassword ? '👁' : '👁‍🗨'}
             </button>
           </div>
 
           {modalType === 'register' && (
             <div className="mb-4 relative">
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                 Confirm Password
               </label>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showConfirmPassword ? 'text' : 'password'}
                 id="confirmPassword"
-                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none text-black bg-white"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={handleConfirmPasswordChange}
                 required
               />
               <button
                 type="button"
-                onClick={togglePasswordVisibility}
-                className="absolute right-3 top-2"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}
+                className="absolute right-3 top-8 text-gray-500 hover:text-gray-700"
               >
-                <img
-                  src={
-                    showPassword
-                      ? 'https://cdn-icons-png.flaticon.com/512/159/159604.png'
-                      : 'https://cdn-icons-png.flaticon.com/512/159/159605.png'
-                }
-                alt={showPassword ? 'Hide Password' : 'Show Password'}
-                width="20"
-              />
+                {showConfirmPassword ? '👁' : '👁‍🗨'}
               </button>
             </div>
           )}

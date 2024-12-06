@@ -2,36 +2,45 @@ import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Lottie from 'react-lottie';
-import successAnimation from '../../animations/success.json';
-import { checkoutValidationSchema } from '../../utils/CheckoutValidations'; // Import the validation schema
+import { checkoutValidationSchema } from '../../utils/CheckoutValidations';
 
 const Checkout: React.FC = () => {
   const { items, clearCart } = useCart();
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
-  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [prize, setPrize] = useState<string | null>(null);
+  const [isSpinning, setIsSpinning] = useState(false);
+  const [hasSpun, setHasSpun] = useState(false);
   const navigate = useNavigate();
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const prizes = [
+    '10% off on next order',
+    'Free shipping on next order',
+    '₹100 off',
+    '₹200 off',
+    'No Luck',
+    'Surprise Gift',
+  ];
+
   const handleSubmit = async () => {
     try {
-      // Validate the checkout inputs
       await checkoutValidationSchema.validate({ address, paymentMethod }, { abortEarly: false });
 
       const orders = JSON.parse(localStorage.getItem('orders') || '[]');
       const newOrder = { items, total, address, paymentMethod, date: new Date() };
       localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
 
-      setOrderPlaced(true);
-      clearCart();
+      toast.success('Order placed successfully!', {
+        position: 'top-center',
+        autoClose: 3000,
+        theme: 'colored',
+      });
 
-      setTimeout(() => {
-        navigate('/');
-      }, 4000);
+      clearCart();
+      setTimeout(() => navigate('/'), 3000);
     } catch (error: any) {
-      // Check if the error is from validation and display it
       if (error.name === 'ValidationError') {
         error.inner.forEach((err: any) => {
           toast.error(err.message, {
@@ -50,28 +59,31 @@ const Checkout: React.FC = () => {
     }
   };
 
-  if (orderPlaced) {
-    const defaultOptions = {
-      loop: false,
-      autoplay: true,
-      animationData: successAnimation,
-      rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
-      },
-    };
+  const handleSpin = () => {
+    if (hasSpun) {
+      toast.error('You can only spin the wheel once!', {
+        position: 'top-center',
+        autoClose: 3000,
+        theme: 'colored',
+      });
+      return;
+    }
 
-    return (
-      <div className="flex items-center justify-center h-screen bg-gray-50">
-        <div className="text-center">
-          <Lottie options={defaultOptions} height={400} width={400} />
-          <h2 className="text-2xl font-bold text-gray-800 mt-4">
-            Your Order Has Been Placed!
-          </h2>
-          <p className="text-gray-600 mt-2">Thank you for shopping with us.</p>
-        </div>
-      </div>
-    );
-  }
+    if (isSpinning) return;
+
+    setIsSpinning(true);
+    const randomIndex = Math.floor(Math.random() * prizes.length);
+    setTimeout(() => {
+      setIsSpinning(false);
+      setPrize(prizes[randomIndex]);
+      setHasSpun(true);
+      toast.success(`Congratulations! You won: ${prizes[randomIndex]}`, {
+        position: 'top-center',
+        autoClose: 5000,
+        theme: 'colored',
+      });
+    }, 3000);
+  };
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -141,6 +153,29 @@ const Checkout: React.FC = () => {
           >
             Place Order
           </button>
+        </div>
+
+        <div className="mt-12 bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Spin the Wheel for Your Next Order</h2>
+          <div
+            className={`relative w-64 h-64 mx-auto rounded-full border-4 border-gray-300 overflow-hidden shadow-lg ${
+              isSpinning ? 'animate-spin-slow' : ''
+            }`}
+            style={{
+              background: 'conic-gradient(#FF5733 0% 16.6%, #33FF57 16.6% 33.3%, #3357FF 33.3% 50%, #FF33A6 50% 66.6%, #FFD433 66.6% 83.3%, #33FFD4 83.3% 100%)',
+            }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center">
+              <button
+                onClick={handleSpin}
+                disabled={isSpinning}
+                className="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
+              >
+                Spin Now
+              </button>
+            </div>
+          </div>
+          {prize && <p className="text-lg font-semibold text-gray-800 mt-4 text-center">You won: {prize}</p>}
         </div>
       </div>
     </div>

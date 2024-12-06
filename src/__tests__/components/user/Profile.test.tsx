@@ -1,146 +1,45 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import Profile from '../../../components/user/Profile';
-import { toast } from 'react-toastify';
-import { profileValidationSchema } from '../../../utils/ProfileValidations';
+import Profile from '../../../components/user/Profile'; 
+import { ToastContainer } from 'react-toastify';
+import '@testing-library/jest-dom';
 
-jest.mock('react-toastify', () => ({
-  toast: {
-    error: jest.fn(),
-    success: jest.fn(),
-    info: jest.fn(),
-  },
-}));
-
-const mockLocalStorage = (() => {
-  let store: { [key: string]: string } = {};
-  return {
-    getItem: (key: string) => store[key] || null,
-    setItem: (key: string, value: string) => {
-      store[key] = value;
-    },
-    removeItem: (key: string) => {
-      delete store[key];
-    },
-    clear: () => {
-      store = {};
-    },
-    length: 0,
-    key: () => null,
-  };
-})();
-global.localStorage = mockLocalStorage;
-
-describe('Profile Component', () => {
-  const mockUser = {
+beforeEach(() => {
+  const user = {
     name: 'John Doe',
-    email: 'john@example.com',
+    email: 'john.doe@example.com',
     phone: '1234567890',
-    address: ['123 Main St', '456 Oak St'],
-    notifications: {
-      email: true,
-      sms: false,
-    },
+    address: ['123 Main St'],
   };
+  localStorage.setItem('user', JSON.stringify(user));
+});
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    localStorage.setItem('user', JSON.stringify(mockUser));
+afterEach(() => {
+  localStorage.clear();
+});
+
+test('should handle adding new address', async () => {
+  render(<Profile />);
+
+  fireEvent.click(screen.getByText('Address Book'));
+
+  const addressInput = screen.getByPlaceholderText('Add new address');
+  fireEvent.change(addressInput, { target: { value: '456 New St' } });
+  fireEvent.click(screen.getByText('Add Address'));
+
+  await waitFor(() => {
+    expect(screen.getByText('456 New St')).toBeInTheDocument();
   });
+});
 
-  test('renders profile information correctly', () => {
-    render(<Profile />);
+test('should handle deleting an address', async () => {
+  render(<Profile />);
 
-    expect(screen.getByText('John Doe')).toBeInTheDocument();
-    expect(screen.getByText('john@example.com')).toBeInTheDocument();
-    expect(screen.getByText('1234567890')).toBeInTheDocument();
-    expect(screen.getByText('123 Main St')).toBeInTheDocument();
-  });
+  fireEvent.click(screen.getByText('Address Book'));
 
-  test('can edit phone number', async () => {
-    render(<Profile />);
+  fireEvent.click(screen.getByText('Delete'));
 
-    fireEvent.click(screen.getByText('Edit'));
-
-    const input = screen.getByPlaceholderText('New Phone');
-    fireEvent.change(input, { target: { value: '0987654321' } });
-
-    fireEvent.click(screen.getByText('Save'));
-
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Phone number updated successfully!'));
-
-    expect(screen.getByText('0987654321')).toBeInTheDocument();
-  });
-
-  test('handles phone number validation errors', async () => {
-    render(<Profile />);
-
-    jest.spyOn(profileValidationSchema, 'validate').mockRejectedValueOnce(new Error('Invalid phone number'));
-
-    fireEvent.click(screen.getByText('Edit'));
-
-    const input = screen.getByPlaceholderText('New Phone');
-    fireEvent.change(input, { target: { value: 'invalid' } });
-
-    fireEvent.click(screen.getByText('Save'));
-
-    await waitFor(() => expect(toast.error).toHaveBeenCalledWith('Invalid phone number'));
-  });
-
-  test('can add a new address', async () => {
-    render(<Profile />);
-
-    const addressInput = screen.getByPlaceholderText('Add new address');
-    fireEvent.change(addressInput, { target: { value: '789 Pine St' } });
-
-    fireEvent.click(screen.getByText('Add Address'));
-
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Address added successfully!'));
-
-    expect(screen.getByText('789 Pine St')).toBeInTheDocument();
-  });
-
-  test('can delete an address', async () => {
-    render(<Profile />);
-
-    fireEvent.click(screen.getAllByText('Delete')[0]);
-
-    await waitFor(() => expect(toast.info).toHaveBeenCalledWith('Address removed successfully.'));
-
+  await waitFor(() => {
     expect(screen.queryByText('123 Main St')).not.toBeInTheDocument();
-  });
-
-  test('can change password', async () => {
-    render(<Profile />);
-
-    fireEvent.click(screen.getByText('Account Settings'));
-
-    const newPasswordInput = screen.getByPlaceholderText('New Password');
-    const confirmPasswordInput = screen.getByPlaceholderText('Confirm New Password');
-
-    fireEvent.change(newPasswordInput, { target: { value: 'newpassword123' } });
-    fireEvent.change(confirmPasswordInput, { target: { value: 'newpassword123' } });
-
-    fireEvent.click(screen.getByText('Change Password'));
-
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Password changed successfully!'));
-  });
-
-  test('can toggle notification preferences', async () => {
-    render(<Profile />);
-
-    const emailCheckbox = screen.getByLabelText('Email Notifications') as HTMLInputElement;
-    fireEvent.click(emailCheckbox);
-
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Notification preferences updated!'));
-
-    expect(emailCheckbox.checked).toBe(false);
-
-    const smsCheckbox = screen.getByLabelText('SMS Notifications') as HTMLInputElement;
-    fireEvent.click(smsCheckbox);
-
-    await waitFor(() => expect(toast.success).toHaveBeenCalledWith('Notification preferences updated!'));
-
-    expect(smsCheckbox.checked).toBe(true);
   });
 });

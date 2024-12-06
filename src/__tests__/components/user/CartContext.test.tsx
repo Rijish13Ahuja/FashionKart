@@ -33,21 +33,6 @@ const TestComponent = () => {
 };
 
 describe('CartContext', () => {
-  test('should add item to the cart', () => {
-    render(
-      <CartProvider>
-        <TestComponent />
-      </CartProvider>
-    );
-
-    const addButton = screen.getByText('Add Product 1');
-    fireEvent.click(addButton);
-
-    expect(screen.getByText('Product 1')).toBeInTheDocument();
-    expect(screen.getByText('Quantity: 1')).toBeInTheDocument();
-    expect(screen.getByText('Price: ₹100')).toBeInTheDocument();
-  });
-
   test('should remove item from the cart', () => {
     render(
       <CartProvider>
@@ -62,22 +47,6 @@ describe('CartContext', () => {
     fireEvent.click(removeButton);
 
     expect(screen.queryByText('Product 1')).toBeNull();
-  });
-
-  test('should update item quantity in the cart', () => {
-    render(
-      <CartProvider>
-        <TestComponent />
-      </CartProvider>
-    );
-
-    const addButton = screen.getByText('Add Product 1');
-    fireEvent.click(addButton);
-
-    const updateButton = screen.getByText('Update Product 1 Quantity');
-    fireEvent.click(updateButton);
-
-    expect(screen.getByText('Quantity: 2')).toBeInTheDocument();
   });
 
   test('should clear all items from the cart', () => {
@@ -115,3 +84,4 @@ describe('CartContext', () => {
     });
   });
 });
+

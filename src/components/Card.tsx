@@ -2,22 +2,22 @@ import React from 'react';
 
 interface CardProps {
   title: string;
-  description: string;
   imageUrl: string;
+  description?: string; // Optional description
 }
 
 const Card: React.FC<CardProps> = ({ title, description, imageUrl }) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
-      <div className="w-full h-48 flex items-center justify-center bg-gray-100 rounded-md overflow-hidden">
+    <div className="bg-white p-5 rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:-translate-y-1 duration-300 w-64 h-80 flex flex-col items-center justify-between">
+      <div className="w-full h-48 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
         <img
           src={imageUrl}
           alt={title}
-          className="max-w-full max-h-full object-contain"
+          className="w-full h-full object-contain"
         />
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 mt-4">{title}</h3>
-      <p className="text-gray-600 mt-2">{description}</p>
+      <h3 className="text-lg font-semibold text-gray-800 text-center mt-4">{title}</h3>
+      {description && <p className="text-sm text-gray-600 text-center mt-2">{description}</p>}
     </div>
   );
 };

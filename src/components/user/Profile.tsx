@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { profileValidationSchema } from '../../utils/ProfileValidations'; // Import the validation schema
+import { profileValidationSchema } from '../../utils/ProfileValidations';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

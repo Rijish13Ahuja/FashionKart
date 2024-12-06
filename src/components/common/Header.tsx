@@ -52,12 +52,14 @@ const Header: React.FC = () => {
   const handleLogin = (newUser: { name: string; email: string }) => {
     setUser(newUser);
     localStorage.setItem('user', JSON.stringify(newUser));
-    setShowModal(false);
+    setShowModal(false); // Close the login modal
+    setDropdownVisible(false); // Close the dropdown menu
   };
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setDropdownVisible(false); // Close the dropdown menu
     navigate('/');
   };
 
