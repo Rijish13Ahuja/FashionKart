@@ -9,23 +9,22 @@ interface Product {
   category: string;
   url: string;
   name: string;
-  image_url: string; 
+  image_url: string;
   discount: number;
   original_price: number;
   reduced_price: number;
   stock: number;
-  rating: number; 
-  brand: string; 
+  rating: number;
+  brand: string;
 }
 
 const ProductListing: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const { addToCart, clearCart } = useCart();
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-  // State hooks for filters
   const [priceRange, setPriceRange] = useState<number[]>([0, 10000]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
@@ -68,7 +67,7 @@ const ProductListing: React.FC = () => {
 
     if (selectedRating !== null) {
       filtered = filtered.filter(
-        (product) => product.rating >= selectedRating // Filtering by 'rating'
+        (product) => product.rating >= selectedRating
       );
     }
 
@@ -76,9 +75,7 @@ const ProductListing: React.FC = () => {
   }, [priceRange, selectedCategory, selectedBrand, selectedRating, products]);
 
   const handleAddToCart = (product: Product) => {
-    // Ensure image_url is defined and not null before calling split
-    const imageUrl = product.image_url?.split(',')[0] || ''; // Use an empty string if image_url is undefined
-
+    const imageUrl = product.image_url?.split(',')[0] || '';
     const cartItem = {
       id: product.id,
       name: product.name,
@@ -96,7 +93,17 @@ const ProductListing: React.FC = () => {
   };
 
   const handleBuyNow = (product: Product) => {
-    navigate('/checkout', { state: { product } });
+    clearCart(); // Clear the cart to ensure only the selected product is present
+    const imageUrl = product.image_url?.split(',')[0] || '';
+    const cartItem = {
+      id: product.id,
+      name: product.name,
+      image: imageUrl,
+      price: product.reduced_price,
+      quantity: 1,
+    };
+    addToCart(cartItem); // Add the selected product to the cart
+    navigate('/checkout'); // Navigate to the checkout page
 
     toast.info(`Proceeding to buy ${product.name}`, {
       position: 'bottom-right',
@@ -154,21 +161,6 @@ const ProductListing: React.FC = () => {
               <option value="Travel">Travel</option>
             </select>
           </div>
-          <div className="mb-6">
-            <h3 className="font-semibold text-gray-800 mb-2">Customer Rating</h3>
-            <select
-              className="border p-2 w-full bg-gray-50 rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              onChange={(e) => setSelectedRating(parseInt(e.target.value))}
-              value={selectedRating || ''}
-            >
-              <option value="">All Ratings</option>
-              <option value={1}>1 Star & Above</option>
-              <option value={2}>2 Stars & Above</option>
-              <option value={3}>3 Stars & Above</option>
-              <option value={4}>4 Stars & Above</option>
-              <option value={5}>5 Stars</option>
-            </select>
-          </div>
         </aside>
 
         <div className="w-4/5 p-6">
@@ -176,9 +168,9 @@ const ProductListing: React.FC = () => {
           {filteredProducts.length > 0 ? (
             <div className="grid grid-cols-4 gap-6">
               {filteredProducts.map((product) => {
-                // Ensure image_url is defined before splitting
-                const images = product.image_url?.split(',').map((url) => url.trim()) || []; // Default to empty array if image_url is undefined
-
+                const images = product.image_url
+                  ?.split(',')
+                  .map((url) => url.trim()) || [];
                 return (
                   <div
                     key={product.id}

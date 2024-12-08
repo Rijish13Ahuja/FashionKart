@@ -5,6 +5,19 @@ import { toast } from 'react-toastify';
 import Lottie from 'react-lottie';
 import successAnimation from '../../animations/success.json';
 import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from 'yup';
+
+export const checkoutValidationSchema = Yup.object({
+  address: Yup.string()
+    .required('Address is required')
+    .min(10, 'Address must be at least 10 characters long'),
+  paymentMethod: Yup.string()
+    .required('Payment method is required')
+    .oneOf(
+      ['Credit Card', 'Debit Card', 'Net Banking', 'UPI', 'Cash on Delivery'],
+      'Invalid payment method'
+    ),
+});
 
 const Checkout: React.FC = () => {
   const { items, clearCart, discount } = useCart();
@@ -13,7 +26,7 @@ const Checkout: React.FC = () => {
   const [prize, setPrize] = useState<string | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
   const [hasSpun, setHasSpun] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // Spinner for submit
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const navigate = useNavigate();
 
@@ -30,8 +43,10 @@ const Checkout: React.FC = () => {
   ];
 
   const handleSubmit = async () => {
-    setIsSubmitting(true); // Start spinner
+    setIsSubmitting(true);
     try {
+      await checkoutValidationSchema.validate({ address, paymentMethod }, { abortEarly: false });
+
       const orders = JSON.parse(localStorage.getItem('orders') || '[]');
       const newOrder = {
         items,
@@ -49,12 +64,22 @@ const Checkout: React.FC = () => {
         navigate('/');
       }, 5000);
     } catch (error: any) {
-      setIsSubmitting(false); // Stop spinner if error occurs
-      toast.error('An unexpected error occurred. Please try again later.', {
-        position: 'top-center',
-        autoClose: 3000,
-        theme: 'colored',
-      });
+      if (error.name === 'ValidationError') {
+        error.inner.forEach((err: any) => {
+          toast.error(err.message, {
+            position: 'top-center',
+            autoClose: 3000,
+            theme: 'colored',
+          });
+        });
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.', {
+          position: 'top-center',
+          autoClose: 3000,
+          theme: 'colored',
+        });
+      }
+      setIsSubmitting(false);
     }
   };
 
@@ -82,7 +107,7 @@ const Checkout: React.FC = () => {
         autoClose: 5000,
         theme: 'colored',
       });
-    }, 3000); // Spin duration
+    }, 3000);
   };
 
   const lottieOptions = {
@@ -139,10 +164,7 @@ const Checkout: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Order Summary:</h2>
           <div className="space-y-4">
             {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center justify-between border-b pb-4"
-              >
+              <div key={item.id} className="flex items-center justify-between border-b pb-4">
                 <div className="flex items-center space-x-4">
                   <img
                     src={item.image}
