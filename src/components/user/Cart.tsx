@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { useCart } from './CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { cartValidationSchema } from '../../utils/CartValidations'; // Import validation schema
+import { cartValidationSchema } from '../../utils/CartValidations';
 import 'react-toastify/dist/ReactToastify.css';
-import { FiShoppingCart } from 'react-icons/fi'; 
+import { FiShoppingCart } from 'react-icons/fi';
 
 const Cart: React.FC = () => {
-  const { items, removeFromCart, updateQuantity, clearCart } = useCart();
+  const { items, removeFromCart, updateQuantity, clearCart, setDiscount, discount } = useCart(); // Use setDiscount and discount from CartContext
   const navigate = useNavigate();
-  const [coupon, setCoupon] = useState<string>('');
-  const [discount, setDiscount] = useState<number>(0);
+  const [coupon, setCoupon] = useState<string | null>(null);
 
   const handleCheckout = () => {
     if (items.length === 0) {
@@ -35,21 +34,20 @@ const Cart: React.FC = () => {
 
   const applyCoupon = async () => {
     try {
-      // Validate the coupon using the validation schema
-      await cartValidationSchema.validate({ coupon });
+      const trimmedCoupon = coupon?.trim() || '';
+      await cartValidationSchema.validate({ coupon: trimmedCoupon });
 
-      if (coupon === 'SAVE10') {
-        setDiscount(10);
+      if (trimmedCoupon === 'SAVE10') {
+        setDiscount(10); // Update discount in CartContext
         toast.success('Coupon applied! ₹10 discount added.');
-      } else if (coupon === 'SAVE50') {
-        setDiscount(50);
+      } else if (trimmedCoupon === 'SAVE50') {
+        setDiscount(50); // Update discount in CartContext
         toast.success('Coupon applied! ₹50 discount added.');
       } else {
-        setDiscount(0);
+        setDiscount(0); // Reset discount in CartContext
         toast.error('Invalid coupon code!');
       }
     } catch (error: any) {
-      // Show validation error message
       toast.error(error.message);
     }
   };
@@ -83,7 +81,7 @@ const Cart: React.FC = () => {
                           type="number"
                           value={item.quantity}
                           onChange={(e) =>
-                            updateQuantity(item.id, parseInt(e.target.value))
+                            updateQuantity(item.id, parseInt(e.target.value) || 1)
                           }
                           className="w-12 border rounded-md p-1 text-center focus:ring-2 focus:ring-blue-500"
                           min={1}
@@ -155,7 +153,7 @@ const Cart: React.FC = () => {
             <div className="mt-6">
               <input
                 type="text"
-                value={coupon}
+                value={coupon || ''}
                 onChange={(e) => setCoupon(e.target.value)}
                 placeholder="Enter Coupon Code"
                 className="w-full border rounded-lg px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500"

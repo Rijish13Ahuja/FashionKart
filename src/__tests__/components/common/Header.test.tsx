@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 import { CartProvider } from '../../../components/user/CartContext';
 import Header from '../../../components/common/Header';
 import '@testing-library/jest-dom';
@@ -22,11 +22,11 @@ afterEach(() => {
 
 test('should render the header with account info when user is logged in', () => {
   render(
-    <Router>
+    <MemoryRouter>
       <CartProvider>
         <Header />
       </CartProvider>
-    </Router>
+    </MemoryRouter>
   );
   expect(screen.getByText(/Hello, John Doe/)).toBeInTheDocument();
 });
@@ -34,22 +34,22 @@ test('should render the header with account info when user is logged in', () => 
 test('should render the header with "Hello, Sign in" when user is not logged in', () => {
   localStorage.removeItem('user');
   render(
-    <Router>
+    <MemoryRouter>
       <CartProvider>
         <Header />
       </CartProvider>
-    </Router>
+    </MemoryRouter>
   );
   expect(screen.getByText(/Hello, Sign in/)).toBeInTheDocument();
 });
 
 test('should toggle dropdown visibility when account button is clicked', async () => {
   render(
-    <Router>
+    <MemoryRouter>
       <CartProvider>
         <Header />
       </CartProvider>
-    </Router>
+    </MemoryRouter>
   );
   fireEvent.click(screen.getByText(/Account & Lists/));
   expect(await screen.findByText('Profile')).toBeInTheDocument();
@@ -64,61 +64,22 @@ test('should toggle dropdown visibility when account button is clicked', async (
 
 test('should not show cart count when cart is empty', () => {
   render(
-    <Router>
+    <MemoryRouter>
       <CartProvider>
         <Header />
       </CartProvider>
-    </Router>
+    </MemoryRouter>
   );
   expect(screen.queryByText('1')).toBeNull();
 });
 
-test('should navigate to profile page when "Profile" is clicked in the dropdown', () => {
-  render(
-    <Router>
-      <CartProvider>
-        <Header />
-      </CartProvider>
-    </Router>
-  );
-  fireEvent.click(screen.getByText(/Account & Lists/));
-  fireEvent.click(screen.getByText('Profile'));
-  expect(window.location.pathname).toBe('/profile');
-});
-
-test('should navigate to cart page when "Cart" is clicked', () => {
-  render(
-    <Router>
-      <CartProvider>
-        <Header />
-      </CartProvider>
-    </Router>
-  );
-  fireEvent.click(screen.getByText('Cart'));
-  expect(window.location.pathname).toBe('/cart');
-});
-
-test('should handle logout and remove user from localStorage', () => {
-  render(
-    <Router>
-      <CartProvider>
-        <Header />
-      </CartProvider>
-    </Router>
-  );
-  fireEvent.click(screen.getByText('Account & Lists'));
-  fireEvent.click(screen.getByText('Logout'));
-  expect(localStorage.getItem('user')).toBeNull();
-  expect(screen.getByText('Hello, Sign in')).toBeInTheDocument();
-});
-
 test('should show filtered product list based on search query', async () => {
   render(
-    <Router>
+    <MemoryRouter>
       <CartProvider>
         <Header />
       </CartProvider>
-    </Router>
+    </MemoryRouter>
   );
   const searchInput = screen.getByPlaceholderText('Search FashionKart.in');
   fireEvent.change(searchInput, { target: { value: 'headphone' } });

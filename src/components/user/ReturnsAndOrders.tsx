@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from './CartContext';
 import { toast } from 'react-toastify';
-import { orderValidationSchema } from '../../utils/ReturnsAndOrdersValidations';
 
 interface Order {
   id: number;
@@ -17,60 +16,39 @@ interface Order {
   }>;
 }
 
-const sampleOrders: Order[] = [
-  {
-    id: 1,
-    date: '2023-11-30',
-    status: 'Delivered',
-    total: 120.5,
-    items: [
-      {
-        id: 101,
-        name: 'Wireless Headphones',
-        image: 'https://via.placeholder.com/100',
-        quantity: 1,
-        price: 120.5,
-      },
-    ],
-  },
-  {
-    id: 2,
-    date: '2023-11-29',
-    status: 'Canceled',
-    total: 200,
-    items: [
-      {
-        id: 102,
-        name: 'Smartphone',
-        image: 'https://via.placeholder.com/100',
-        quantity: 1,
-        price: 200,
-      },
-    ],
-  },
-];
-
 const ReturnsAndOrders: React.FC = () => {
-  const { addToCart } = useCart();
-  const [orders] = useState<Order[]>(sampleOrders);
+  const { user, addToCart } = useCart();
+  const [orders, setOrders] = useState<Order[]>([]);
   const [filter, setFilter] = useState<'All' | 'Delivered' | 'Canceled' | 'Processing'>('All');
   const [supportModal, setSupportModal] = useState<{ orderId: number; show: boolean }>({
     orderId: 0,
     show: false,
   });
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!user?.userId) {
+        toast.error('User not logged in.');
+        return;
+      }
+      try {
+        const response = await fetch(`http://localhost:3000/orders?user_id=${user.userId}`);
+        const data = await response.json();
+        setOrders(data);
+      } catch {
+        toast.error('Failed to load orders.');
+      }
+    };
+    fetchOrders();
+  }, [user?.userId]);
+
   const filteredOrders = orders.filter(
     (order) => filter === 'All' || order.status === filter
   );
 
   const handleReorder = async (orderItems: Order['items']) => {
-    try {
-      await Promise.all(orderItems.map((item) => orderValidationSchema.validate(item)));
-      orderItems.forEach((item) => addToCart(item));
-      toast.success('Items added to cart for reorder!');
-    } catch (error: any) {
-      toast.error(`Validation error: ${error.message}`);
-    }
+    orderItems.forEach((item) => addToCart(item));
+    toast.success('Items added to cart for reorder!');
   };
 
   const handleDownloadInvoice = (orderId: number) => {
@@ -89,20 +67,10 @@ const ReturnsAndOrders: React.FC = () => {
     setSupportModal({ orderId: 0, show: false });
   };
 
-  const validateOrder = async (order: Order) => {
-    try {
-      await orderValidationSchema.validate(order);
-    } catch (error: any) {
-      toast.error(`Validation error for order ${order.id}: ${error.message}`);
-    }
-  };
-
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-semibold mb-6 text-gray-800">Your Orders</h1>
-
-        {/* Filters */}
         <div className="flex justify-between items-center mb-6">
           <select
             value={filter}
@@ -115,75 +83,68 @@ const ReturnsAndOrders: React.FC = () => {
             <option value="Processing">Processing</option>
           </select>
         </div>
-
-        {/* Order List */}
         {filteredOrders.length > 0 ? (
-          <div className="space-y-6">
-            {filteredOrders.map((order) => {
-              validateOrder(order); // Validate each order
-
-              return (
-                <div key={order.id} className="border border-gray-200 rounded-lg p-4">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-medium text-gray-800">Order #{order.id}</h2>
-                    <p
-                      className={`text-sm font-medium ${
-                        order.status === 'Delivered'
-                          ? 'text-green-600'
-                          : order.status === 'Canceled'
-                          ? 'text-red-600'
-                          : 'text-yellow-600'
-                      }`}
-                    >
-                      {order.status}
-                    </p>
-                  </div>
-                  <p className="text-gray-600 text-sm mt-1">Placed on {order.date}</p>
-                  <p className="text-gray-800 font-medium mt-2">Total: ₹{order.total.toFixed(2)}</p>
-
-                  {/* Order Items */}
-                  <div className="mt-4 space-y-2">
-                    {order.items.map((item) => (
-                      <div key={item.id} className="flex items-center space-x-4">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-16 rounded-lg object-cover"
-                        />
-                        <div>
-                          <p className="text-gray-800 font-medium">{item.name}</p>
-                          <p className="text-gray-600 text-sm">
-                            Quantity: {item.quantity} &middot; ₹{item.price.toFixed(2)}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex justify-end space-x-4 mt-4">
-                    <button
-                      onClick={() => handleReorder(order.items)}
-                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-                    >
-                      Reorder
-                    </button>
-                    <button
-                      onClick={() => handleDownloadInvoice(order.id)}
-                      className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
-                    >
-                      Download Invoice
-                    </button>
-                    <button
-                      onClick={() => openSupportModal(order.id)}
-                      className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                    >
-                      Support
-                    </button>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredOrders.map((order) => (
+              <div
+                key={order.id}
+                className="bg-white p-6 rounded-lg shadow-md border border-gray-200"
+              >
+                <div className="flex justify-between items-center">
+                  <h2 className="text-lg font-medium text-gray-800">Order #{order.id}</h2>
+                  <p
+                    className={`text-sm font-medium ${
+                      order.status === 'Delivered'
+                        ? 'text-green-600'
+                        : order.status === 'Canceled'
+                        ? 'text-red-600'
+                        : 'text-yellow-600'
+                    }`}
+                  >
+                    {order.status}
+                  </p>
                 </div>
-              );
-            })}
+                <p className="text-gray-600 text-sm mt-1">Placed on {order.date}</p>
+                <p className="text-gray-800 font-medium mt-2">Total: ₹{order.total.toFixed(2)}</p>
+                <div className="mt-4 space-y-2">
+                  {order.items.map((item) => (
+                    <div key={item.id} className="flex items-center space-x-4">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-16 h-16 rounded-lg object-cover"
+                      />
+                      <div>
+                        <p className="text-gray-800 font-medium">{item.name}</p>
+                        <p className="text-gray-600 text-sm">
+                          Quantity: {item.quantity} &middot; ₹{item.price.toFixed(2)}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => handleReorder(order.items)}
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  >
+                    Reorder
+                  </button>
+                  <button
+                    onClick={() => handleDownloadInvoice(order.id)}
+                    className="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400"
+                  >
+                    Download Invoice
+                  </button>
+                  <button
+                    onClick={() => openSupportModal(order.id)}
+                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+                  >
+                    Support
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
           <div className="text-center py-20">
@@ -196,8 +157,6 @@ const ReturnsAndOrders: React.FC = () => {
             </button>
           </div>
         )}
-
-        {/* Support Modal */}
         {supportModal.show && (
           <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white p-6 rounded-lg shadow-lg">

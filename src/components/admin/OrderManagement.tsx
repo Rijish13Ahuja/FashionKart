@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import { getAllOrders, updateOrderStatus, deleteOrder } from '../../services/OrderService';
 import { orderValidationSchema } from '../admin/validations/orderValidations';
 import * as Yup from 'yup';
+import { useCart } from '../../components/user/CartContext'; // Importing CartContext
 
 const OrderManagement: React.FC = () => {
+  const { user } = useCart(); // Access user from the context
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -12,12 +14,17 @@ const OrderManagement: React.FC = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const ordersData = await getAllOrders();
-      setOrders(ordersData);
-      setLoading(false);
+      if (user?.userId) { // Ensure user is logged in before fetching orders
+        const ordersData = await getAllOrders(user.userId);
+        setOrders(ordersData);
+        setLoading(false);
+      } else {
+        alert("User not found. Please log in.");
+      }
     };
+
     fetchOrders();
-  }, []);
+  }, [user]); // Re-fetch orders when user context changes
 
   const handleUpdateStatus = async (id: number, status: string) => {
     const orderToUpdate = orders.find((order) => order.id === id);
@@ -121,8 +128,7 @@ const OrderManagement: React.FC = () => {
               Are you sure you want to{' '}
               {actionType === 'markAsShipped'
                 ? 'mark this order as shipped'
-                : 'delete this order'}
-              ?
+                : 'delete this order'}?
             </p>
             <div className="mt-4 flex justify-end space-x-4">
               <button
