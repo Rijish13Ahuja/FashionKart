@@ -1,4 +1,3 @@
-// __tests__/components/common/LogoutConfirmation.test.tsx
 import { render, screen } from '@testing-library/react';
 import LogoutConfirmation from '../../../components/common/LogoutConfirmation';
 import '@testing-library/jest-dom';
