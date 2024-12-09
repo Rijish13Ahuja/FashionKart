@@ -3,7 +3,7 @@ import React from 'react';
 interface CardProps {
   title: string;
   imageUrl: string;
-  description?: string; // Optional description
+  description?: string; 
 }
 
 const Card: React.FC<CardProps> = ({ title, description, imageUrl }) => {

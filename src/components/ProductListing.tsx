@@ -93,7 +93,7 @@ const ProductListing: React.FC = () => {
   };
 
   const handleBuyNow = (product: Product) => {
-    clearCart(); // Clear the cart to ensure only the selected product is present
+    clearCart();
     const imageUrl = product.image_url?.split(',')[0] || '';
     const cartItem = {
       id: product.id,
@@ -102,8 +102,8 @@ const ProductListing: React.FC = () => {
       price: product.reduced_price,
       quantity: 1,
     };
-    addToCart(cartItem); // Add the selected product to the cart
-    navigate('/checkout'); // Navigate to the checkout page
+    addToCart(cartItem);
+    navigate('/checkout');
 
     toast.info(`Proceeding to buy ${product.name}`, {
       position: 'bottom-right',

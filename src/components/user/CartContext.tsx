@@ -22,7 +22,7 @@ interface CartContextType {
   removeFromCart: (id: number) => void;
   updateQuantity: (id: number, quantity: number) => void;
   clearCart: () => void;
-  setDiscount: (discount: number) => void; // Added to allow updating the discount
+  setDiscount: (discount: number) => void;
   login: (user: User) => void;
   logout: () => void;
   getCurrentUser: () => User | null;
@@ -45,7 +45,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return storedUser ? { ...JSON.parse(storedUser), userId: JSON.parse(storedUser).id } : null;
   });
 
-  const [discount, setDiscount] = useState<number>(0); // New state for managing discount
+  const [discount, setDiscount] = useState<number>(0);
 
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(items));
@@ -84,13 +84,13 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   };
 
   const clearCart = () => {
-    setItems([]); // Clear state
-    setDiscount(0); // Reset discount when cart is cleared
-    localStorage.removeItem('cartItems'); // Sync localStorage
+    setItems([]);
+    setDiscount(0);
+    localStorage.removeItem('cartItems');
   };
 
   const login = (user: User) => {
-    setUser({ ...user, userId: user.userId }); // Ensure `userId` is populated
+    setUser({ ...user, userId: user.userId });
   };
 
   const logout = () => {
@@ -110,7 +110,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         removeFromCart,
         updateQuantity,
         clearCart,
-        setDiscount, // Expose setDiscount function
+        setDiscount,
         login,
         logout,
         getCurrentUser,

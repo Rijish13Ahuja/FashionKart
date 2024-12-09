@@ -20,7 +20,7 @@ export const checkoutValidationSchema = Yup.object({
 });
 
 const Checkout: React.FC = () => {
-  const { items, clearCart, discount } = useCart();
+  const { items, clearCart, discount, user } = useCart();
   const [address, setAddress] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('Credit Card');
   const [prize, setPrize] = useState<string | null>(null);
@@ -28,6 +28,7 @@ const Checkout: React.FC = () => {
   const [hasSpun, setHasSpun] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -43,21 +44,41 @@ const Checkout: React.FC = () => {
   ];
 
   const handleSubmit = async () => {
+    if (!user) {
+      toast.error('You need to log in to place an order.');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await checkoutValidationSchema.validate({ address, paymentMethod }, { abortEarly: false });
 
-      const orders = JSON.parse(localStorage.getItem('orders') || '[]');
       const newOrder = {
-        items,
-        subtotal,
-        discount,
-        total: totalAfterDiscount,
+        id: Math.random().toString(36).substr(2, 9),
+        user_id: user.userId,
+        products: items.map((item) => ({
+          product_id: item.id,
+          quantity: item.quantity,
+          price: item.price,
+        })),
+        total_amount: totalAfterDiscount,
         address,
-        paymentMethod,
-        date: new Date(),
+        payment_method: paymentMethod,
+        order_date: new Date().toISOString(),
+        status: 'Processing',
       };
-      localStorage.setItem('orders', JSON.stringify([...orders, newOrder]));
+
+      const response = await fetch('http://localhost:3000/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newOrder),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to place the order.');
+      }
+
+      setOrderId(newOrder.id);
       setShowConfirmation(true);
       setTimeout(() => {
         clearCart();
@@ -73,7 +94,7 @@ const Checkout: React.FC = () => {
           });
         });
       } else {
-        toast.error('An unexpected error occurred. Please try again later.', {
+        toast.error(error.message || 'An unexpected error occurred. Please try again.', {
           position: 'top-center',
           autoClose: 3000,
           theme: 'colored',
@@ -121,17 +142,19 @@ const Checkout: React.FC = () => {
 
   if (showConfirmation) {
     return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <div className="flex flex-col justify-center items-center min-h-screen bg-gray-50">
         <div>
           <Lottie options={lottieOptions} height={400} width={400} />
           <h2 className="text-center text-xl font-bold text-gray-700 mt-6">
             Order Confirmed! Thank you for shopping with us.
           </h2>
+          <p className="text-center text-gray-600 mt-4">
+            Your Order ID: <span className="font-bold text-gray-800">{orderId}</span>
+          </p>
         </div>
       </div>
     );
   }
-
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

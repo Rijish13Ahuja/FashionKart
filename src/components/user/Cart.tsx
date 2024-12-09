@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FiShoppingCart } from 'react-icons/fi';
 
 const Cart: React.FC = () => {
-  const { items, removeFromCart, updateQuantity, clearCart, setDiscount, discount } = useCart(); // Use setDiscount and discount from CartContext
+  const { items, removeFromCart, updateQuantity, clearCart, setDiscount, discount } = useCart();
   const navigate = useNavigate();
   const [coupon, setCoupon] = useState<string | null>(null);
 
@@ -38,13 +38,13 @@ const Cart: React.FC = () => {
       await cartValidationSchema.validate({ coupon: trimmedCoupon });
 
       if (trimmedCoupon === 'SAVE10') {
-        setDiscount(10); // Update discount in CartContext
+        setDiscount(10);
         toast.success('Coupon applied! ₹10 discount added.');
       } else if (trimmedCoupon === 'SAVE50') {
-        setDiscount(50); // Update discount in CartContext
+        setDiscount(50);
         toast.success('Coupon applied! ₹50 discount added.');
       } else {
-        setDiscount(0); // Reset discount in CartContext
+        setDiscount(0);
         toast.error('Invalid coupon code!');
       }
     } catch (error: any) {
@@ -148,8 +148,6 @@ const Cart: React.FC = () => {
               <span className="text-gray-900">Total Amount</span>
               <span className="text-gray-900">₹{calculateTotal().toFixed(2)}</span>
             </div>
-
-            {/* Coupon Code Section */}
             <div className="mt-6">
               <input
                 type="text"
@@ -165,7 +163,6 @@ const Cart: React.FC = () => {
                 Apply Coupon
               </button>
             </div>
-
             <button
               onClick={handleCheckout}
               className="w-full mt-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg hover:from-blue-600 hover:to-blue-700 transition shadow-lg"

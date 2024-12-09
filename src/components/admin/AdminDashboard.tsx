@@ -6,7 +6,7 @@ interface Product {
   category: string;
   price: number;
   stock: number;
-  img_url?: string; // Optional field for product image URL
+  img_url?: string; 
 }
 
 const AdminDashboard: React.FC = () => {
@@ -20,7 +20,7 @@ const AdminDashboard: React.FC = () => {
       try {
         const response = await fetch('http://localhost:3000/products');
         const productsData = await response.json();
-        console.log(productsData); // Check the response structure
+        console.log(productsData); 
         setProducts(productsData);
         setLoading(false);
       } catch (error) {

@@ -38,7 +38,6 @@ const ProductManagement: React.FC = () => {
     e.preventDefault();
 
     try {
-      // Validate form data using productValidationSchema
       await productValidationSchema.validate({
         name: formData.name,
         category: formData.category,

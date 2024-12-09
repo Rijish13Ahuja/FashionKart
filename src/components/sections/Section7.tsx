@@ -51,7 +51,6 @@ const Section7: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* Left Arrow Button */}
         {isHovered && (
           <button
             className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-800 transition duration-300"
@@ -73,7 +72,6 @@ const Section7: React.FC = () => {
             </svg>
           </button>
         )}
-        {/* Right Arrow Button */}
         {isHovered && (
           <button
             className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white p-3 rounded-full hover:bg-blue-800 transition duration-300"

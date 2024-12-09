@@ -21,7 +21,7 @@ const Section2: React.FC = () => {
 
   const handleScroll = (direction: string) => {
     if (scrollRef.current) {
-      const scrollAmount = direction === 'right' ? 300 : -300; // Amount to scroll
+      const scrollAmount = direction === 'right' ? 300 : -300; 
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };

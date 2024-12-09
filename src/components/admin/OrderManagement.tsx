@@ -14,7 +14,7 @@ const OrderManagement: React.FC = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (user?.userId) { // Ensure user is logged in before fetching orders
+      if (user?.userId) { 
         const ordersData = await getAllOrders(user.userId);
         setOrders(ordersData);
         setLoading(false);
@@ -24,14 +24,13 @@ const OrderManagement: React.FC = () => {
     };
 
     fetchOrders();
-  }, [user]); // Re-fetch orders when user context changes
+  }, [user]); 
 
   const handleUpdateStatus = async (id: number, status: string) => {
     const orderToUpdate = orders.find((order) => order.id === id);
 
     if (orderToUpdate) {
       try {
-        // Validate order data before updating
         await orderValidationSchema.validate({
           id: orderToUpdate.id,
           customerName: orderToUpdate.customerName,
@@ -39,10 +38,7 @@ const OrderManagement: React.FC = () => {
           status,
         });
 
-        // If validation passes, proceed with API call
         await updateOrderStatus(id, status);
-
-        // Update state
         setOrders((prevOrders) =>
           prevOrders.map((order) =>
             order.id === id ? { ...order, status } : order

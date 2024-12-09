@@ -122,7 +122,6 @@ const Profile: React.FC = () => {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="flex mt-6 border-b">
           <button
             className={`flex-1 text-center py-2 ${
@@ -150,7 +149,6 @@ const Profile: React.FC = () => {
           </button>
         </div>
 
-        {/* Tab Content */}
         <div className="mt-6">
           {tab === 'personal' && (
             <div>

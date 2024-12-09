@@ -84,8 +84,6 @@ const Settings: React.FC = () => {
             Save Settings
           </button>
         </div>
-
-        {/* Change Password */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-4">Change Password</h3>
           <form onSubmit={handlePasswordChange} className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -126,8 +124,6 @@ const Settings: React.FC = () => {
             </div>
           </form>
         </div>
-
-        {/* Notification Preferences */}
         <div className="mb-6">
           <h3 className="text-lg font-medium mb-4">Notification Preferences</h3>
           <div className="space-y-2">
@@ -167,8 +163,6 @@ const Settings: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Privacy Settings */}
         <div>
           <h3 className="text-lg font-medium mb-4">Privacy Settings</h3>
           <div className="space-y-2">

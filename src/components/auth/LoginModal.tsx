@@ -21,9 +21,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [hashedPassword, setHashedPassword] = useState(''); // Displayed stars for password
+  const [hashedPassword, setHashedPassword] = useState(''); 
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [hashedConfirmPassword, setHashedConfirmPassword] = useState(''); // Displayed stars for confirm password
+  const [hashedConfirmPassword, setHashedConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
@@ -35,7 +35,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
     setTimeout(() => {
       setPopupMessage('');
       setPopupType(null);
-      closeModal(); // Ensure modal closes after success
+      closeModal(); 
     }, 3000);
   };
 
@@ -93,7 +93,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
         if (existingUser) {
           handleLogin({ name: existingUser.name, email: existingUser.email });
-          showPopup('Logged in successfully!', 'success'); // Trigger popup for login success
+          showPopup('Logged in successfully!', 'success'); 
         } else {
           showPopup('Invalid email or password!', 'error');
         }

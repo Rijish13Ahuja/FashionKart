@@ -41,7 +41,6 @@ const Section5: React.FC = () => {
 
   return (
     <div className="flex mb-12">
-      {/* Left Side: Cards */}
       <div className="w-2/3 grid grid-cols-2 gap-4">
         {section5Items.map((item) => (
           <div
@@ -60,7 +59,6 @@ const Section5: React.FC = () => {
         ))}
       </div>
 
-      {/* Right Side: Banner/Ad with background image */}
       <div
         className="w-1/3 flex items-center justify-center bg-cover bg-center rounded-lg p-4"
         style={{

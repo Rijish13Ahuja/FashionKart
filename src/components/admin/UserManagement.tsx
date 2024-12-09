@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllUsers, updateUserStatus, deleteUser } from '../../services/UserService';
-import { userValidationSchema } from '../admin/validations/userValidations'; // Import the validation schema
+import { userValidationSchema } from '../admin/validations/userValidations';
 import { FaCheckCircle, FaBan, FaTrash } from 'react-icons/fa';
 import * as Yup from 'yup';
 
@@ -32,7 +32,7 @@ const UserManagement: React.FC = () => {
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         alert(`Validation Error: ${error.message}`);
-        throw error; // Prevent further action
+        throw error;
       }
     }
   };
@@ -42,7 +42,7 @@ const UserManagement: React.FC = () => {
 
     if (userToUpdate) {
       try {
-        await validateUserAction(userToUpdate, status); // Validate before updating
+        await validateUserAction(userToUpdate, status);
         await updateUserStatus(id, status);
 
         setUsers((prevUsers) =>
@@ -61,7 +61,7 @@ const UserManagement: React.FC = () => {
 
     if (userToDelete) {
       try {
-        await validateUserAction(userToDelete); // Validate before deleting
+        await validateUserAction(userToDelete);
         await deleteUser(id);
         setUsers(users.filter((user) => user.id !== id));
       } catch (error) {
