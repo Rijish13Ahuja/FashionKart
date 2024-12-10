@@ -21,7 +21,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [hashedPassword, setHashedPassword] = useState(''); 
+  const [hashedPassword, setHashedPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hashedConfirmPassword, setHashedConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +35,6 @@ const LoginModal: React.FC<LoginModalProps> = ({
     setTimeout(() => {
       setPopupMessage('');
       setPopupType(null);
-      closeModal(); 
     }, 3000);
   };
 
@@ -74,9 +73,9 @@ const LoginModal: React.FC<LoginModalProps> = ({
         });
 
         if (response.ok) {
-          showPopup('Account created successfully!', 'success');
+          showPopup('Account created successfully! Redirecting to login...', 'success');
           setTimeout(() => {
-            setModalType('login');
+            setModalType('login'); // Redirect to login modal after registration
           }, 3000);
         } else {
           throw new Error('Failed to register. Please try again.');
@@ -93,7 +92,7 @@ const LoginModal: React.FC<LoginModalProps> = ({
 
         if (existingUser) {
           handleLogin({ name: existingUser.name, email: existingUser.email });
-          showPopup('Logged in successfully!', 'success'); 
+          showPopup('Logged in successfully!', 'success');
         } else {
           showPopup('Invalid email or password!', 'error');
         }
