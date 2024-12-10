@@ -115,18 +115,6 @@
       "total_amount": 1170,
       "order_date": "2024-11-06",
       "status": "Completed"
-    },
-    {
-      "status": "Shipped",
-      "id": "7"
-    },
-    {
-      "status": "Shipped",
-      "id": "8"
-    },
-    {
-      "status": "Shipped",
-      "id": "tr1aodmem"
     }
   ],
   "products": [
