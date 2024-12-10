@@ -6,7 +6,7 @@ interface Product {
   category: string;
   price: number;
   stock: number;
-  image_url?: string; // Use 'image_url' as specified
+  image_url?: string; 
 }
 
 const AdminDashboard: React.FC = () => {
@@ -20,7 +20,7 @@ const AdminDashboard: React.FC = () => {
       try {
         const response = await fetch('http://localhost:3000/products');
         const productsData = await response.json();
-        console.log('Fetched Products:', productsData); // Log the data
+        console.log('Fetched Products:', productsData);
         setProducts(productsData);
         setLoading(false);
       } catch (error) {

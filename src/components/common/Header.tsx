@@ -138,7 +138,10 @@ const Header: React.FC = () => {
                 {filteredProducts.map((product) => (
                   <li
                     key={product.id}
-                    onClick={() => navigate(`/product/${product.id}`)}
+                    onClick={() => {
+                      console.log(`Navigating to /products/${product.id}`);
+                      navigate(`/products/${product.id}`); // Corrected path
+                    }}
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-black"
                   >
                     {product.name}
