@@ -6,7 +6,7 @@ interface Product {
   category: string;
   price: number;
   stock: number;
-  img_url?: string; 
+  image_url?: string; // Use 'image_url' as specified
 }
 
 const AdminDashboard: React.FC = () => {
@@ -20,7 +20,7 @@ const AdminDashboard: React.FC = () => {
       try {
         const response = await fetch('http://localhost:3000/products');
         const productsData = await response.json();
-        console.log(productsData); 
+        console.log('Fetched Products:', productsData); // Log the data
         setProducts(productsData);
         setLoading(false);
       } catch (error) {
@@ -31,6 +31,12 @@ const AdminDashboard: React.FC = () => {
 
     fetchProducts();
   }, []);
+
+  const getFirstImageUrl = (imageUrlString: string | undefined) => {
+    if (!imageUrlString) return 'https://via.placeholder.com/150?text=No+Image';
+    const urls = imageUrlString.split(',').map((url) => url.trim());
+    return urls[0] || 'https://via.placeholder.com/150?text=No+Image';
+  };
 
   const handleEdit = (productId: number) => {
     setEditingProductId(productId);
@@ -105,9 +111,12 @@ const AdminDashboard: React.FC = () => {
                   className="bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300"
                 >
                   <img
-                    src={product.img_url || 'https://via.placeholder.com/150?text=Product+Image'}
+                    src={getFirstImageUrl(product.image_url)}
                     alt={product.name}
                     className="w-full h-48 object-cover rounded-md mb-4"
+                    onError={(e) => {
+                      e.currentTarget.src = 'https://via.placeholder.com/150?text=Image+Not+Found';
+                    }}
                   />
                   {editingProductId === product.id ? (
                     <div>

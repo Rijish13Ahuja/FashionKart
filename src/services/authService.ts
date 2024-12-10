@@ -1,5 +1,5 @@
 export const login = (email: string, password: string) => {
-  const mockUser = { email, token: 'mock-token', userId: '12345' };
+  const mockUser = { email, token: 'mock-token', id: '12345' };
   localStorage.setItem('user', JSON.stringify(mockUser));
   return mockUser;
 };

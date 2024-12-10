@@ -1,52 +1,12 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "password": "hashed_password_1",
-      "address": "123 Main St, City, Country",
-      "phone": "123-456-7890"
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
-      "password": "hashed_password_2",
-      "address": "456 Elm St, City, Country",
-      "phone": "987-654-3210"
-    },
-    {
-      "id": "3",
-      "name": "Sam Brown",
-      "email": "sam.brown@example.com",
-      "password": "hashed_password_3",
-      "address": "789 Oak St, City, Country",
-      "phone": "555-555-5555"
-    },
-    {
-      "status": "Active",
-      "id": "4"
-    },
-    {
       "id": "5",
       "name": "Michael Green",
       "email": "michael.green@example.com",
       "password": "hashed_password_5",
       "address": "202 Maple St, City, Country",
       "phone": "444-555-6666"
-    },
-    {
-      "status": "Active",
-      "id": "6"
-    },
-    {
-      "id": "7",
-      "name": "David Harris",
-      "email": "david.harris@example.com",
-      "password": "hashed_password_7",
-      "address": "404 Cedar St, City, Country",
-      "phone": "777-888-9999"
     },
     {
       "id": "8",
@@ -65,16 +25,10 @@
       "phone": "999-000-1111"
     },
     {
-      "id": "10",
-      "name": "Sophia Turner",
-      "email": "sophia.turner@example.com",
-      "password": "hashed_password_10",
-      "address": "707 Pine St, City, Country",
-      "phone": "000-111-2222"
-    },
-    {
-      "status": "Active",
-      "id": "1b55"
+      "id": "de30",
+      "name": "Rijish Ahuja",
+      "email": "rijishahuja@gmail.com",
+      "password": "13231323"
     }
   ],
   "orders": [
@@ -163,107 +117,16 @@
       "status": "Completed"
     },
     {
-      "id": "7",
-      "user_id": 7,
-      "products": [
-        {
-          "product_id": 7,
-          "quantity": 1,
-          "price": 760
-        }
-      ],
-      "total_amount": 760,
-      "order_date": "2024-11-07",
-      "status": "Cancelled"
+      "status": "Shipped",
+      "id": "7"
     },
     {
-      "id": "8",
-      "user_id": 8,
-      "products": [
-        {
-          "product_id": 8,
-          "quantity": 1,
-          "price": 792
-        }
-      ],
-      "total_amount": 792,
-      "order_date": "2024-11-08",
-      "status": "Completed"
+      "status": "Shipped",
+      "id": "8"
     },
     {
-      "id": "5491",
-      "products": [
-        {
-          "product_id": "14",
-          "quantity": 1,
-          "price": 36
-        }
-      ],
-      "total_amount": 36,
-      "address": "jbds bajbar;rgiagw",
-      "payment_method": "Credit Card",
-      "order_date": "2024-12-09T08:07:40.437Z",
-      "status": "Cancelled"
-    },
-    {
-      "id": "a9cb",
-      "products": [
-        {
-          "product_id": "26",
-          "quantity": 1,
-          "price": 18
-        }
-      ],
-      "total_amount": 18,
-      "address": "m z,vzlnvlkd vlakdkdv",
-      "payment_method": "Credit Card",
-      "order_date": "2024-12-09T08:23:55.075Z",
-      "status": "Cancelled"
-    },
-    {
-      "id": "epi8j8dcn",
-      "products": [
-        {
-          "product_id": "36",
-          "quantity": 1,
-          "price": 4.5
-        }
-      ],
-      "total_amount": 4.5,
-      "address": "ajkaadbdjka ;faiwfga",
-      "payment_method": "Credit Card",
-      "order_date": "2024-12-09T12:01:08.073Z",
-      "status": "Processing"
-    },
-    {
-      "id": "0n6sexllr",
-      "products": [
-        {
-          "product_id": "1",
-          "quantity": 1,
-          "price": 450
-        }
-      ],
-      "total_amount": 450,
-      "address": " dsjafb;ef; w",
-      "payment_method": "Credit Card",
-      "order_date": "2024-12-09T12:50:41.394Z",
-      "status": "Processing"
-    },
-    {
-      "id": "71pa7wdmb",
-      "products": [
-        {
-          "product_id": "1",
-          "quantity": 1,
-          "price": 450
-        }
-      ],
-      "total_amount": 450,
-      "address": ",jvk jgiufuf u/",
-      "payment_method": "Credit Card",
-      "order_date": "2024-12-09T13:40:36.596Z",
-      "status": "Processing"
+      "status": "Shipped",
+      "id": "tr1aodmem"
     }
   ],
   "products": [
@@ -279,19 +142,6 @@
       "stock": 25,
       "rating": 4,
       "brand": "Apple"
-    },
-    {
-      "id": "2",
-      "category": "Technology",
-      "url": "https://example.com/product/2",
-      "name": "Laptop",
-      "image_url": "https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714075.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714003.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469, https://img.freepik.com/free-photo/view-3d-laptop-device-with-screen-keyboard_23-2150714081.jpg?uid=R97105849&ga=GA1.1.1132192693.1733152469",
-      "discount": 15,
-      "original_price": 1200,
-      "reduced_price": 1020,
-      "stock": 40,
-      "rating": 5,
-      "brand": "Dell"
     },
     {
       "id": "3",
@@ -844,6 +694,16 @@
       "reducedPrice": 89,
       "stock": 4,
       "discount": 10
+    },
+    {
+      "id": "a9e9",
+      "name": "Water Bottles",
+      "category": "Grocery",
+      "imageUrl": "",
+      "originalPrice": 50,
+      "reducedPrice": 30,
+      "stock": 8,
+      "discount": 20
     }
   ]
 }

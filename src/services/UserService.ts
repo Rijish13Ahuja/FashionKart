@@ -15,12 +15,14 @@ export const getAllUsers = async () => {
 export const updateUserStatus = async (id: number, status: string) => {
   try {
     const response = await axios.put(`${API_URL}/${id}`, { status });
+    console.log(`User with ID: ${id} successfully updated to status: ${status}`);
     return response.data;
   } catch (error) {
-    console.error('Error updating user status:', error);
-    throw error;
+    console.error(`Error updating user with ID: ${id}:`, error);
+    throw new Error(`Failed to update user with ID: ${id}`);
   }
 };
+
 
 export const deleteUser = async (id: number) => {
   try {

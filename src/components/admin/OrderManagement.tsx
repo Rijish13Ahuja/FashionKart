@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import { getAllOrders, updateOrderStatus, deleteOrder } from '../../services/OrderService';
-import { orderValidationSchema } from '../admin/validations/orderValidations';
-import * as Yup from 'yup';
-import { useCart } from '../../components/user/CartContext'; // Importing CartContext
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderManagement: React.FC = () => {
-  const { user } = useCart(); // Access user from the context
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -14,51 +12,54 @@ const OrderManagement: React.FC = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (user?.userId) { 
-        const ordersData = await getAllOrders(user.userId);
-        setOrders(ordersData);
+      try {
+        const ordersData = await getAllOrders();
+        const mappedOrders = ordersData.map((order: any) => ({
+          id: order.id,
+          customerName: order.user_id ? `User ${order.user_id}` : 'Unknown User',
+          total: order.total_amount,
+          status: order.status,
+          orderDate: order.order_date,
+        }));
+        setOrders(mappedOrders);
+      } catch (error) {
+        toast.error('Error fetching orders.');
+      } finally {
         setLoading(false);
-      } else {
-        alert("User not found. Please log in.");
       }
     };
 
     fetchOrders();
-  }, [user]); 
+  }, []);
 
   const handleUpdateStatus = async (id: number, status: string) => {
     const orderToUpdate = orders.find((order) => order.id === id);
 
     if (orderToUpdate) {
       try {
-        await orderValidationSchema.validate({
-          id: orderToUpdate.id,
-          customerName: orderToUpdate.customerName,
-          total: orderToUpdate.total,
-          status,
-        });
-
         await updateOrderStatus(id, status);
         setOrders((prevOrders) =>
           prevOrders.map((order) =>
             order.id === id ? { ...order, status } : order
           )
         );
+        toast.success('Order marked as shipped.');
         setShowModal(false);
       } catch (error) {
-        if (error instanceof Yup.ValidationError) {
-          alert(`Validation Error: ${error.message}`);
-        } else {
-          alert('An unknown error occurred.');
-        }
+        toast.error('Error updating order status.');
       }
     }
   };
 
   const handleDeleteOrder = async (id: number) => {
-    await deleteOrder(id);
-    setOrders(orders.filter((order) => order.id !== id));
-    setShowModal(false);
+    try {
+      await deleteOrder(id);
+      setOrders(orders.filter((order) => order.id !== id));
+      toast.success('Order deleted successfully.');
+      setShowModal(false);
+    } catch (error) {
+      toast.error('Error deleting order.');
+    }
   };
 
   const openModal = (id: number, action: string) => {
@@ -75,24 +76,23 @@ const OrderManagement: React.FC = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} />
       <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-gray-800 mb-6">Order Management</h2>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {loading ? (
             <div>Loading...</div>
-          ) : (
+          ) : orders.length > 0 ? (
             orders.map((order) => (
               <div
                 key={order.id}
                 className="bg-white p-6 rounded-lg shadow-lg border border-gray-200"
               >
-                <h3 className="text-xl font-semibold text-gray-700">
-                  Order ID: {order.id}
-                </h3>
+                <h3 className="text-xl font-semibold text-gray-700">Order ID: {order.id}</h3>
                 <p className="text-sm text-gray-600">Customer: {order.customerName}</p>
                 <p className="text-sm text-gray-600">Total: ${order.total}</p>
                 <p className="text-sm text-gray-600">Status: {order.status}</p>
+                <p className="text-sm text-gray-600">Date: {order.orderDate}</p>
 
                 <div className="mt-4 flex justify-between items-center">
                   <button
@@ -110,6 +110,8 @@ const OrderManagement: React.FC = () => {
                 </div>
               </div>
             ))
+          ) : (
+            <div>No orders available.</div>
           )}
         </div>
       </div>
